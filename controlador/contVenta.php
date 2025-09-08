@@ -431,6 +431,105 @@ function controlador($accion)
                     foreach ($carrito as $k => $v) {
                         $objPro->actualizarStock($v["idproducto"], $v["cantidad"] * -1);
                     }
+                    // ===================== FACTURACIÓN ELECTRÓNICA =======================
+                            require __DIR__ . '/../vendor/autoload.php';
+                            $see = require __DIR__ . '/../sunat/config.php';
+
+                            // Cliente
+                            $clienteBD = $objClie->consultarClientePorId($venta["idcliente"])->fetch(PDO::FETCH_ASSOC);
+                            $client = (new Client())
+                                ->setTipoDoc($clienteBD['idtipodocumento'])
+                                ->setNumDoc($clienteBD['nrodocumento'])
+                                ->setRznSocial($clienteBD['nombre']);
+
+                            // Empresa emisora (ajusta a tus datos)
+                            $address = (new Address())
+                                ->setUbigueo("150101")
+                                ->setDepartamento("LIMA")
+                                ->setProvincia("LIMA")
+                                ->setDistrito("LIMA")
+                                ->setUrbanizacion("-")
+                                ->setDireccion("Av. Villa Nueva 221")
+                                ->setCodLocal("0000");
+
+                            $company = (new Company())
+                                ->setRuc("20123456789")
+                                ->setRazonSocial("MI EMPRESA SAC")
+                                ->setNombreComercial("MI EMPRESA")
+                                ->setAddress($address);
+
+                            // Documento
+                            $invoice = (new Invoice())
+                                ->setUblVersion('2.1')
+                                ->setTipoOperacion("0101")
+                                ->setTipoDoc($venta["idtipocomprobante"] == "1" ? "01" : "03") // 01=Factura, 03=Boleta
+                                ->setSerie($venta["serie"])
+                                ->setCorrelativo($venta["correlativo"])
+                                ->setFechaEmision(new DateTime($venta["fecha"], new DateTimeZone('America/Lima')))
+                                ->setFormaPago(new FormaPagoContado())
+                                ->setTipoMoneda("PEN")
+                                ->setCompany($company)
+                                ->setClient($client)
+                                ->setMtoOperGravadas($venta["total_gravado"])
+                                ->setMtoIGV($venta["total_igv"])
+                                ->setTotalImpuestos($venta["total_igv"])
+                                ->setValorVenta($venta["total_gravado"])
+                                ->setSubTotal($venta["total"])
+                                ->setMtoImpVenta($venta["total"]);
+
+                            // Detalles
+                            $items = [];
+                            foreach ($detalle_venta as $d) {
+                                $items[] = (new SaleDetail())
+                                    ->setCodProducto($d['idproducto'])
+                                    ->setUnidad($d['unidad'])
+                                    ->setCantidad($d['cantidad'])
+                                    ->setMtoValorUnitario($d['pventa'])
+                                    ->setDescripcion("Producto " . $d['idproducto'])
+                                    ->setMtoBaseIgv($d['total'])
+                                    ->setPorcentajeIgv(18.00)
+                                    ->setIgv($d['igv'])
+                                    ->setTipAfeIgv($d['idafectacion'])
+                                    ->setTotalImpuestos($d['igv'])
+                                    ->setMtoValorVenta($d['total'])
+                                    ->setMtoPrecioUnitario($d['pventa']);
+                            }
+                            $invoice->setDetails($items);
+
+                            // Leyenda en letras (puedes usar una función numToLetters)
+                            $legend = (new Legend())
+                                ->setCode('1000')
+                                ->setValue("SON " . $venta["total"] . " SOLES");
+                            $invoice->setLegends([$legend]);
+
+                            // Enviar a SUNAT
+                            $result = $see->send($invoice);
+
+                            // Guardar XML/CDR
+                            file_put_contents(__DIR__ . '/../xml/' . $invoice->getName() . '.xml', $see->getFactory()->getLastXml());
+
+                            $xml = 'xml/' . $invoice->getName() . '.xml';
+                            
+                            if ($result->isSuccess()) {
+                                file_put_contents(__DIR__ . '/../cdr/R-' . $invoice->getName() . '.zip', $result->getCdrZip());
+
+                                $cdr = 'cdr/R-' . $invoice->getName() . '.zip';
+                                $sunatRespuesta = [
+                                    "estado" => "ACEPTADO",
+                                    "descripcion" => $result->getCdrResponse()->getDescription()
+                                ];
+                                $estadoSunat = 'ACEPTADO';
+                                $objVen -> actualizarSunar($xml, $cdr, $estadoSunat, $_POST['idventa']);
+                            } else {
+                                $sunatRespuesta = [
+                                    "estado" => "ERROR",
+                                    "codigo" => $result->getError()->getCode(),
+                                    "mensaje" => $result->getError()->getMessage()
+                                ];
+                                $estadoSunat = 'RECHAZADO';
+                                $objVen -> actualizarSunar(NULL, NULL, $estadoSunat, $_POST['idventa']);
+                            }
+                            // =====================================================================
                     //fin actualizacion de stock actual                    
                     $codigoError =  1;
                 } else if (count($problemasStock) > 0) {
