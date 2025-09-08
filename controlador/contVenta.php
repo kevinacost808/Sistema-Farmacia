@@ -256,7 +256,7 @@ function controlador($accion)
                                     "descripcion" => $result->getCdrResponse()->getDescription()
                                 ];
                                 $estadoSunat = 'ACEPTADO';
-                                $objVen -> actualizarSunar($xml, $cdr, $estadoSunat, $idventa);
+                                $objVen -> actualizarSunat($xml, $cdr, $estadoSunat, $idventa);
                             } else {
                                 $sunatRespuesta = [
                                     "estado" => "ERROR",
@@ -264,7 +264,7 @@ function controlador($accion)
                                     "mensaje" => $result->getError()->getMessage()
                                 ];
                                 $estadoSunat = 'RECHAZADO';
-                                $objVen -> actualizarSunar(NULL, NULL, $estadoSunat, $idventa);
+                                $objVen -> actualizarSunat($xml, NULL, $estadoSunat, $idventa);
                             }
                             // =====================================================================
 
@@ -496,7 +496,7 @@ function controlador($accion)
                             }
                             $invoice->setDetails($items);
 
-                            // Leyenda en letras (puedes usar una función numToLetters)
+                            // Leyenda
                             $legend = (new Legend())
                                 ->setCode('1000')
                                 ->setValue("SON " . $venta["total"] . " SOLES");
@@ -519,7 +519,7 @@ function controlador($accion)
                                     "descripcion" => $result->getCdrResponse()->getDescription()
                                 ];
                                 $estadoSunat = 'ACEPTADO';
-                                $objVen -> actualizarSunar($xml, $cdr, $estadoSunat, $_POST['idventa']);
+                                $objVen -> actualizarSunat($xml, $cdr, $estadoSunat, $_POST['idventa']);
                             } else {
                                 $sunatRespuesta = [
                                     "estado" => "ERROR",
@@ -527,7 +527,7 @@ function controlador($accion)
                                     "mensaje" => $result->getError()->getMessage()
                                 ];
                                 $estadoSunat = 'RECHAZADO';
-                                $objVen -> actualizarSunar(NULL, NULL, $estadoSunat, $_POST['idventa']);
+                                $objVen -> actualizarSunat(NULL, NULL, $estadoSunat, $_POST['idventa']);
                             }
                             // =====================================================================
                     //fin actualizacion de stock actual                    
