@@ -232,7 +232,7 @@ class clsVenta{
         }
     }
 
-    function actualizarSunar($xml, $cdr, $estadoSunat, $idventa) {
+    function actualizarSunat($xml, $cdr, $estadoSunat, $idventa) {
         $sql = "UPDATE venta 
                 SET xml = :xml, cdr = :cdr , estadoSunat = :estadoSunat
                 WHERE idventa = :idventa";
