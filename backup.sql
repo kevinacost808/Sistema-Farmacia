@@ -1,0 +1,1267 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 11-09-2025 a las 06:36:42
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.1.25
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `farmacia`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `acceso`
+--
+
+CREATE TABLE `acceso` (
+  `idperfil` int(11) NOT NULL,
+  `idopcion` int(11) NOT NULL,
+  `estado` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `acceso`
+--
+
+INSERT INTO `acceso` (`idperfil`, `idopcion`, `estado`) VALUES
+(1, 1, 1),
+(1, 2, 1),
+(1, 3, 1),
+(1, 4, 1),
+(1, 5, 1),
+(1, 6, 1),
+(1, 7, 1),
+(1, 8, 1),
+(1, 13, 1),
+(1, 16, 1),
+(2, 1, 0),
+(2, 2, 0),
+(2, 3, 0),
+(2, 4, 0),
+(2, 5, 1),
+(2, 6, 1),
+(2, 7, 0),
+(2, 8, 0),
+(3, 3, 1),
+(3, 5, 1),
+(3, 6, 1),
+(3, 8, 1),
+(4, 1, 1),
+(4, 2, 1),
+(4, 3, 0),
+(4, 4, 0),
+(4, 6, 0),
+(4, 7, 1),
+(4, 8, 1),
+(4, 16, 1),
+(9, 1, 1),
+(9, 2, 1),
+(9, 3, 1),
+(9, 4, 1),
+(9, 5, 1),
+(9, 6, 1),
+(9, 7, 1),
+(9, 8, 1),
+(9, 13, 1),
+(9, 16, 1),
+(10, 1, 1),
+(10, 2, 1),
+(10, 3, 1),
+(10, 4, 1),
+(11, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `afectacion`
+--
+
+CREATE TABLE `afectacion` (
+  `idafectacion` int(11) NOT NULL,
+  `descripcion` varchar(45) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `afectacion`
+--
+
+INSERT INTO `afectacion` (`idafectacion`, `descripcion`) VALUES
+(10, 'GRAVADAS'),
+(20, 'EXONERADAS'),
+(30, 'INAFECTAS');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categoria`
+--
+
+CREATE TABLE `categoria` (
+  `idcategoria` int(11) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`idcategoria`, `nombre`, `estado`) VALUES
+(1, 'MEDICAMENTOS', 1),
+(2, 'VITAMINAS', 2),
+(3, 'SUPLEMENTOS', 1),
+(4, 'CUIDADO PERSONAL', 1),
+(5, 'MATERIAL DE CURACION', 1),
+(6, 'EQUIPOS MEDICO', 1),
+(7, 'PRODUCTOS NATURALES', 1),
+(8, 'BEBIDAS', 1),
+(9, 'SNACKS', 1),
+(10, 'DULCES', 1),
+(11, 'CUIDADO DEL BEBE', 1),
+(12, 'DERMATOLOGICOS', 1),
+(13, 'ANTIBIOTICOS', 1),
+(14, 'ANALGESICOS', 1),
+(15, 'ANTIGRIPALES', 1),
+(16, 'ANTIALERGICOS', 1),
+(17, 'GASTROINTESTINALES', 1),
+(18, 'CARDIOVASCULARES', 1),
+(19, 'DIABETES', 1),
+(20, 'SALUD MENTAL', 1),
+(21, 'DISPOSITIVOS ', 1),
+(22, 'CUIDADO DENTAL', 1),
+(23, 'PRIMEROS AUXILIOS', 1),
+(24, 'PRODUCTOS DE BELLEZA', 1),
+(25, 'HIGIENE PERSONAL', 1),
+(26, 'ALIMENTOS ESPECIALES', 1),
+(27, 'FORMULA LACTEA', 1),
+(28, 'PANALES', 1),
+(29, 'TOALLAS HIGIENICAS', 1),
+(30, 'TINTES', 1),
+(31, 'PERFUMES', 1),
+(32, 'JABONES', 1),
+(33, 'SHAMPOO', 1),
+(34, 'ACONDICIONADOR', 1),
+(35, 'CREMAS', 1),
+(36, 'LOCIONES', 1),
+(37, 'TALCOS', 1),
+(38, 'DESODORANTES', 1),
+(39, 'BLOQUEADORES SOLARES', 1),
+(40, 'REPELENTES', 1),
+(41, 'TERMOMETROS', 1),
+(42, 'TENSIOMETROS DIGITALES', 1),
+(43, 'GLUCOMETROS', 1),
+(44, 'OXIMETROS', 1),
+(45, 'INHALADORES', 1),
+(46, 'NEBULIZADORES', 1),
+(47, 'FORMULA LACTEA ADULTO', 1),
+(48, 'GENERICOS', 1),
+(49, 'CREMAS MICOTICAS', 1),
+(50, 'OTROS', 1),
+(51, 'ALCOHOL', 1),
+(52, 'AGUA OXIGENADA', 1),
+(53, 'YODO', 1),
+(54, 'CURITAS', 2),
+(55, 'GASAS', 2),
+(56, 'VENDAS', 2),
+(57, 'APOSITOS', 2),
+(58, 'JERINGAS', 2),
+(59, 'AGUJAS', 2),
+(60, 'GUANTES QUIRURGICOS', 2),
+(61, 'MASCARILLAS', 2),
+(62, 'BOLSAS DE SUERO', 2),
+(63, 'CANNULAS', 2),
+(64, 'SONDAS', 2),
+(65, 'PASTA DENTAL', 1),
+(66, 'CEPILLOS DE DIENTES', 1),
+(67, 'ENJUAGUE BUCAL', 1),
+(68, 'HILO DENTAL', 1),
+(69, 'PROTESIS DENTALES', 1),
+(70, 'CEPILLOS INTERDENTALES', 1),
+(71, 'RASURADORAS', 1),
+(72, 'CREMA DE AFEITAR', 1),
+(73, 'PRESERVATIVOS', 1),
+(74, 'LUBRICANTES', 1),
+(75, 'PRUEBAS DE EMBARAZO', 1),
+(76, 'PRUEBAS DE OVULACION', 1),
+(77, 'ANTICONCEPTIVOS', 1),
+(78, 'VITAMINA C', 1),
+(79, 'VITAMINA D', 1),
+(80, 'COMPLEJO B', 1),
+(81, 'OMEGA 3', 1),
+(82, 'PROBIOTICOS', 1),
+(83, 'JARABES', 1),
+(84, 'AMPOLLAS', 1),
+(85, 'UNGUENTO', 1),
+(86, 'GOTAS', 1),
+(87, 'SOLUCION', 1),
+(88, 'SPRAY', 1),
+(89, 'OVULOS', 1),
+(90, 'EFERVECENTES', 1),
+(91, 'TABLETAS', 1),
+(92, 'CAPSULA', 1),
+(93, 'CAPSULA BLANDA', 1),
+(94, 'otros12', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `cliente`
+--
+
+CREATE TABLE `cliente` (
+  `idcliente` int(11) NOT NULL,
+  `nombre` varchar(200) DEFAULT NULL,
+  `idtipodocumento` char(1) DEFAULT NULL,
+  `nrodocumento` varchar(20) DEFAULT NULL,
+  `direccion` varchar(200) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `cliente`
+--
+
+INSERT INTO `cliente` (`idcliente`, `nombre`, `idtipodocumento`, `nrodocumento`, `direccion`, `estado`) VALUES
+(1, 'JUAN PEREZ MENDOZA', '1', '12345698', 'MANUEL NRO 123 - CERCADO DE LIMA', 0),
+(2, 'TAQINI TECHNOLOGY S.A.C.', '6', '20602814425', 'CAL.JUAN CUGLIEVAN NRO. 216 CERCADO DE CHICLAYO  (OFICINA NRO. 301)  LAMBAYEQUE - CHICLAYO - CHICLAYO', 1),
+(3, 'JUNTA DE USUARIOS DEL SECTOR HIDRAULICO MENOR SAN LORENZO', '6', '20161500292', 'AV.REFORMA AGRARIA NRO. S N CRUCETA  (EX DRENAJE)  PIURA - PIURA - TAMBO GRANDE', 1),
+(4, 'EUSEBIO KELVIN RIVADENEIRA FABIAN', '1', '75123787', 'Aguaytia - UCAYALI', 1),
+(5, 'ELVIS ENRIQUE VALENTIN MALDONADO', '1', '46874321', 'PISCO', 1),
+(6, 'ESWIN YASMANI MORALES VINCES', '1', '41981450', 'TUMBES', 1),
+(7, 'CARLOS', '1', '12345695', 'PERU - LIMA', 1),
+(8, 'ASSEL', '1', '12345678', 'PERU', 2),
+(9, 'CHAVITO', '1', '44332211', 'PERU', 2),
+(10, 'JOSE PEREZ', '1', '12312333', 'CHICLAYO', 1),
+(11, 'FUENTES', '1', '45933663', '', 2),
+(12, 'FUENTES ANTONIO', '6', '10459336635', '', 2),
+(13, 'ANTONIO JUNIOR FUENTES ALCANTARA', '1', '45933663', 'PERU', 1),
+(14, 'YORDANO JEREMY ENRIQUEZ CALLE', '1', '71403954', 'PERU', 2),
+(20, 'ANTONIO FUENTES DAVILA', '6', '10459336635', 'PERU', 1),
+(21, 'CLIENTES VARIOS', '0', '', 'CRFRE', 1),
+(22, 'JUAN MATEO', '1', '56545678', 'PERU-ICA', 1),
+(23, 'PERU PERNOS E.I.R.L.', '6', '20604687013', 'JR. AZANGARO NRO 922 INT. 31 CERCADO DE LIMA  LIMA-LIMA-LIMA', 1),
+(24, 'PEREZ RIOS JHON RICHARD', '6', '10415728200', '- --', 1),
+(25, 'CONECTA RETAIL S.A.', '6', '20141189850', 'AV. LUIS GONZALES NRO 1315 URB. CERCADO DE CHICLAYO  CHICLAYO-CHICLAYO-LAMBAYEQUE', 1),
+(27, 'INSTITUTO INTERNACIONAL DE SOFTWARE S.A.C.', '6', '20607599727', 'CAL. 8 DE OCTUBRE NRO 274 INT. 1  LAMBAYEQUE-LAMBAYEQUE-LAMBAYEQUE', 1),
+(28, 'LUIS ANTONIO CHAFLOQUE AVELLANEDA', '1', '41681372', 'CALLE 28 DE JULIO 221', 1),
+(29, 'MARILUZ GUILLERMINA GUTIERREZ LUCANA', '1', '43156963', 'inventada 88784324', 1),
+(30, 'DIANA LISETH MALCA PAREDES', '1', '42700647', '', 1),
+(31, 'KEVIN EDDY ACOSTA GAMARRA', '1', '75825936', '', 1),
+(32, 'ACOSTA GAMARRA KEVIN EDDY', '6', '10758259361', '- --', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalle`
+--
+
+CREATE TABLE `detalle` (
+  `iddetalle` int(11) NOT NULL,
+  `idventa` int(11) DEFAULT NULL,
+  `idproducto` int(11) DEFAULT NULL,
+  `cantidad` decimal(15,2) DEFAULT NULL,
+  `unidad` char(3) DEFAULT NULL,
+  `pventa` decimal(15,2) DEFAULT NULL,
+  `igv` decimal(15,2) DEFAULT NULL,
+  `icbper` decimal(15,2) DEFAULT NULL,
+  `descuento` decimal(15,2) DEFAULT NULL,
+  `total` decimal(15,2) DEFAULT NULL,
+  `idafectacion` int(11) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `detalle`
+--
+
+INSERT INTO `detalle` (`iddetalle`, `idventa`, `idproducto`, `cantidad`, `unidad`, `pventa`, `igv`, `icbper`, `descuento`, `total`, `idafectacion`, `estado`) VALUES
+(212, 86, 9, 1.00, 'NIU', 15.00, 2.29, 0.00, 0.00, 15.00, 10, 1),
+(213, 86, 13, 1.00, 'KGM', 0.50, 0.08, 0.00, 0.00, 0.50, 10, 1),
+(214, 86, 8, 1.00, 'NIU', 10.00, 1.53, 0.00, 0.00, 10.00, 10, 1),
+(215, 87, 7, 1.00, 'NIU', 5.00, 0.76, 0.00, 0.00, 5.00, 10, 1),
+(216, 87, 24, 1.00, 'NIU', 12.00, 1.83, 0.00, 0.00, 12.00, 10, 1),
+(217, 88, 8, 4.00, 'NIU', 10.00, 6.10, 0.00, 0.00, 40.00, 10, 2),
+(218, 88, 9, 3.00, 'NIU', 15.00, 6.86, 0.00, 0.00, 45.00, 10, 2),
+(219, 88, 25, 2.00, 'NIU', 78.00, 23.80, 0.00, 0.00, 156.00, 10, 2),
+(220, 88, 9, 5.00, 'NIU', 15.00, 11.44, 0.00, 0.00, 75.00, 10, 1),
+(221, 88, 25, 2.00, 'NIU', 78.00, 23.80, 0.00, 0.00, 156.00, 10, 1),
+(222, 89, 131, 1.00, 'NIU', 26.00, 3.97, 0.00, 0.00, 26.00, 10, 1),
+(223, 89, 188, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(224, 89, 143, 1.00, 'NIU', 3.50, 0.53, 0.00, 0.00, 3.50, 10, 1),
+(225, 89, 139, 1.00, 'NIU', 8.50, 1.30, 0.00, 0.00, 8.50, 10, 1),
+(226, 90, 188, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(227, 90, 187, 1.00, 'NIU', 2.00, 0.31, 0.00, 0.00, 2.00, 10, 1),
+(228, 90, 335, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(229, 91, 335, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(230, 91, 187, 1.00, 'NIU', 2.00, 0.31, 0.00, 0.00, 2.00, 10, 1),
+(231, 91, 188, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(232, 91, 189, 1.00, 'NIU', 0.20, 0.03, 0.00, 0.00, 0.20, 10, 1),
+(233, 92, 73, 3.00, 'NIU', 2.50, 1.14, 0.00, 0.00, 7.50, 10, 1),
+(234, 92, 187, 1.00, 'NIU', 2.00, 0.31, 0.00, 0.00, 2.00, 10, 1),
+(235, 93, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(249, 107, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(250, 108, 106, 1.00, 'NIU', 17.00, 2.59, 0.00, 0.00, 17.00, 10, 1),
+(251, 109, 188, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(252, 110, 131, 1.00, 'NIU', 26.00, 3.97, 0.00, 0.00, 26.00, 10, 1),
+(253, 111, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(254, 112, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(255, 113, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(256, 114, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(257, 115, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(258, 116, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(259, 117, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(260, 118, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(261, 119, 335, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(262, 120, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(263, 121, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(264, 122, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(265, 123, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(266, 124, 188, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(267, 125, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(268, 126, 262, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(269, 127, 187, 1.00, 'NIU', 2.00, 0.31, 0.00, 0.00, 2.00, 10, 1),
+(270, 128, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(271, 129, 73, 2.00, 'NIU', 2.50, 0.76, 0.00, 0.00, 5.00, 10, 1),
+(272, 130, 262, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(273, 131, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(274, 132, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(275, 133, 262, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(276, 134, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(277, 135, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(278, 136, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(279, 137, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(280, 138, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(281, 139, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(282, 140, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(283, 141, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(284, 142, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(285, 143, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(290, 144, 73, 2.00, 'NIU', 2.50, 0.76, 0.00, 0.00, 5.00, 10, 1),
+(291, 145, 187, 1.00, 'NIU', 2.00, 0.31, 0.00, 0.00, 2.00, 10, 1),
+(292, 146, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(293, 147, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(294, 148, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(295, 149, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(296, 150, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(297, 151, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(298, 152, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(299, 153, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(300, 154, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(301, 155, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(302, 156, 262, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(303, 157, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(304, 158, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(305, 159, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(306, 160, 262, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(307, 161, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(308, 162, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(309, 163, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(310, 164, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(311, 165, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(312, 166, 262, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(313, 167, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(314, 168, 73, 3.00, 'NIU', 2.50, 1.14, 0.00, 0.00, 7.50, 10, 1),
+(315, 168, 187, 1.00, 'NIU', 2.00, 0.31, 0.00, 0.00, 2.00, 10, 1),
+(316, 169, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(317, 170, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(318, 171, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(319, 172, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(320, 173, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(324, 177, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(325, 178, 188, 2.00, 'NIU', 1.50, 0.46, 0.00, 0.00, 3.00, 10, 2),
+(326, 179, 188, 2.00, 'NIU', 1.50, 0.46, 0.00, 0.00, 3.00, 10, 2),
+(327, 179, 187, 1.00, 'NIU', 2.00, 0.31, 0.00, 0.00, 2.00, 10, 2),
+(328, 178, 188, 3.00, 'NIU', 1.50, 0.69, 0.00, 0.00, 4.50, 10, 2),
+(329, 178, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 2),
+(330, 178, 189, 2.00, 'NIU', 0.20, 0.06, 0.00, 0.00, 0.40, 10, 2),
+(331, 178, 262, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 2),
+(332, 178, 262, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(333, 179, 187, 1.00, 'NIU', 2.00, 0.31, 0.00, 0.00, 2.00, 10, 1),
+(334, 180, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(335, 180, 188, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(336, 181, 335, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(337, 181, 187, 1.00, 'NIU', 2.00, 0.31, 0.00, 0.00, 2.00, 10, 1),
+(338, 182, 188, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(339, 182, 335, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(340, 182, 262, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1),
+(341, 182, 189, 1.00, 'NIU', 0.20, 0.03, 0.00, 0.00, 0.20, 10, 1),
+(342, 183, 187, 1.00, 'NIU', 2.00, 0.31, 0.00, 0.00, 2.00, 10, 1),
+(343, 184, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(344, 185, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(345, 186, 73, 1.00, 'NIU', 2.50, 0.38, 0.00, 0.00, 2.50, 10, 1),
+(346, 186, 188, 1.00, 'NIU', 1.50, 0.23, 0.00, 0.00, 1.50, 10, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `moneda`
+--
+
+CREATE TABLE `moneda` (
+  `idmoneda` char(3) NOT NULL,
+  `nombre` varchar(20) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `moneda`
+--
+
+INSERT INTO `moneda` (`idmoneda`, `nombre`, `estado`) VALUES
+('PEN', 'SOLES', 1),
+('USD', 'DOLARES', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `opcion`
+--
+
+CREATE TABLE `opcion` (
+  `idopcion` int(11) NOT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `icono` varchar(20) DEFAULT NULL,
+  `url` varchar(150) DEFAULT NULL,
+  `idopcion_ref` int(11) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `opcion`
+--
+
+INSERT INTO `opcion` (`idopcion`, `descripcion`, `icono`, `url`, `idopcion_ref`, `estado`) VALUES
+(1, 'Categorias', 'fa-tags', 'vista/categorias.php', 9, 1),
+(2, 'Productos', 'fa-list', 'vista/productos.php', 9, 1),
+(3, 'Perfiles', 'fa-user-lock', 'vista/perfiles.php', 11, 1),
+(4, 'Usuarios', 'fa-user-circle', 'vista/usuarios.php', 11, 1),
+(5, 'Clientes', 'fa-users', 'vista/clientes.php', 10, 1),
+(6, 'Ventas', 'fa-cart-plus', 'vista/ventas.php', 10, 1),
+(7, 'Inventario', 'fa-boxes', 'vista/inventario.php', 9, 1),
+(8, 'Reportes Ventas', 'fa-chart-bar', 'vista/reportes.php', 12, 1),
+(13, 'Compras', 'fa-home', 'vista/compras.php', 14, 1),
+(16, 'Reporte Utilidades', 'fa-coins', 'vista/reporte_utilidades.php', 12, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `perfil`
+--
+
+CREATE TABLE `perfil` (
+  `idperfil` int(11) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL COMMENT '0 -> INACTIVO \n1 -> ACTIVO\n2 -> ELIMINADO'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `perfil`
+--
+
+INSERT INTO `perfil` (`idperfil`, `nombre`, `estado`) VALUES
+(1, 'ADMINISTRADOR', 1),
+(2, 'VENDEDOR', 1),
+(3, 'CAJERO', 1),
+(4, 'ALMACENERO', 0),
+(5, 'PRUEBA', 2),
+(6, 'CONTADOR', 2),
+(7, 'CONTADOR', 2),
+(8, 'SECRETARIA', 0),
+(9, 'ALMACEN-VENDEDOR', 0),
+(10, 'PRUEBA', 0),
+(11, 'ALAMCENERO-JUNIOR', 0),
+(12, 'prueba333', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto`
+--
+
+CREATE TABLE `producto` (
+  `idproducto` int(11) NOT NULL,
+  `nombre` varchar(200) DEFAULT NULL,
+  `codigobarra` varchar(100) DEFAULT NULL,
+  `pventa` decimal(15,2) DEFAULT NULL,
+  `pcompra` decimal(15,2) DEFAULT NULL,
+  `stock` decimal(15,2) DEFAULT NULL,
+  `idunidad` char(3) DEFAULT NULL,
+  `urlimagen` varchar(200) DEFAULT NULL,
+  `idcategoria` int(11) DEFAULT NULL,
+  `idafectacion` int(11) DEFAULT NULL,
+  `afectoicbper` smallint(6) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL,
+  `stockseguridad` decimal(15,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`idproducto`, `nombre`, `codigobarra`, `pventa`, `pcompra`, `stock`, `idunidad`, `urlimagen`, `idcategoria`, `idafectacion`, `afectoicbper`, `estado`, `stockseguridad`) VALUES
+(1, 'Paracetamol 500mg', '292992929292', 3.00, 2.00, 18.00, 'NIU', 'imagen/productos/IMG_1_cepillo_vitis_duro.jpg', 10, 10, 0, 2, 12.00),
+(2, 'Ibuprofeno 400mg', '9099393993', 5.00, 4.00, 24.00, 'NIU', NULL, 10, 10, NULL, 2, NULL),
+(3, 'Amoxicilina 500mg', '98238489234', 0.60, 0.40, 14.00, 'NIU', 'imagen/productos/IMG_3_rellenita.jpg', 15, 10, 0, 2, 0.00),
+(4, 'Aspirina 100mg', '98238489231', 1.00, 0.80, 0.00, 'NIU', 'imagen/productos/IMG_4_animalitos.jpg', 15, 10, 0, 2, NULL),
+(5, 'Omeprazol 20mg', 'B9999', 0.80, 0.60, 22.00, 'NIU', 'imagen/productos/IMG_5bolsa.jpg', 36, 10, 1, 2, 50.00),
+(6, 'Loratadina 10mg', '', 6.00, 5.00, 4.00, 'NIU', NULL, 10, 10, 0, 2, NULL),
+(7, 'Cetirizina 10mg', '11111111', 5.00, 4.00, 7.00, 'NIU', NULL, 10, 10, 0, 2, 12.00),
+(8, 'Alcohol 70%', 'C0000111', 10.00, 9.00, 4.00, 'NIU', NULL, 10, 10, 0, 2, NULL),
+(9, 'Agua Oxigenada 10 vol', '0000000', 15.00, 10.00, 74.00, 'NIU', 'imagen/productos/IMG_9agua_oxigenada_alkofarma_1000ml.png', 36, 10, 0, 2, 10.00),
+(10, 'Curitas (caja x 100)', '', 5.00, 4.00, 89.00, 'BOX', 'imagen/productos/IMG_10Cable_Coaxial.jpg', 28, 10, 0, 2, 50.00),
+(11, 'Gasas esteriles (paquete)', 'MNG34325', 45.00, 40.00, 28.00, 'KGM', 'imagen/productos/IMG_11GASAS.jpg', 74, 10, 0, 2, 50.00),
+(12, 'Vendas elasticas 5cm', '', 45.00, 40.00, 8.00, 'NIU', 'imagen/productos/IMG_12taladro.jpeg', 36, 10, 0, 2, 4.00),
+(13, 'Algodon 100g', '000923', 0.50, 0.20, 181.00, 'KGM', 'imagen/productos/IMG_13images.jpg', 71, 10, 0, 2, 100.00),
+(14, 'Termometro digital', '', 10.00, 7.00, 0.00, 'NIU', 'imagen/productos/IMG_14alicate.jpg', 36, 10, 0, 2, 6.00),
+(15, 'Tensiómetro análogo', '', 5.00, 3.00, 0.00, 'NIU', 'imagen/productos/IMG_15brochas.jpg', 36, 10, 0, 2, 10.00),
+(16, 'Multivitamínico (frasco x 60)', '', 50.00, 40.00, 38.00, 'NIU', 'imagen/productos/IMG_16MUL.jpg', 27, 10, 0, 2, 20.00),
+(17, 'Vitamina C 1g (caja)', '', 2.00, 1.00, 9.00, 'BOX', NULL, 28, 10, 0, 2, 12.00),
+(18, 'Suero fisiologico 500ml', 'MGHMNH', 3.00, 2.50, 8.00, 'NIU', NULL, 28, 10, 0, 2, 10.00),
+(19, 'Pañales RN (bolsa)', 'RTYRT', 4.00, 3.00, 0.00, 'NIU', NULL, 28, 10, 0, 2, 5.00),
+(20, 'Toallas higienicas (paquete)', '0008901', 6.50, 5.00, 50.00, 'KGM', NULL, 57, 10, 0, 2, 20.00),
+(21, 'Shampoo anticaspa 200ml', '09042', 6.00, 4.00, 35.00, 'KGM', 'imagen/productos/IMG_2135043709.png', 57, 10, 0, 2, 50.00),
+(22, 'Jabón líquido antibacterial', '', 25.00, 20.00, 67.00, 'BOX', 'imagen/productos/IMG_22descarga.jpeg', 58, 10, 0, 2, 25.00),
+(23, 'Pasta dental 100g', '', 3.00, 1.50, 29.00, 'LT', 'imagen/productos/IMG_23san_luis.jpg', 56, 10, 0, 2, 23.00),
+(24, 'Cepillo dental (pack x 3)', '', 12.00, 6.00, 0.00, 'NIU', 'imagen/productos/IMG_24Mermelada.jpg', 60, 10, 0, 2, 30.00),
+(25, 'Bloqueador solar SPF 50', 'MN234234', 78.00, 55.00, 2.00, 'NIU', 'imagen/productos/IMG_25h5x46riq.png', 67, 10, 0, 2, 15.00),
+(26, 'Repelente de insectos spray', '', 10.00, 11.00, 12.00, 'NIU', NULL, 65, 10, 0, 2, 20.00),
+(27, 'TEST DE EMBARAZO STRIP TUTEST', '7759405000483', 5.00, 2.50, 1.00, 'NIU', NULL, 21, 10, 0, 1, 5.00),
+(28, 'TEST DE EMBARAZO STRIP TEST7', '7754518000016', 5.00, 2.50, 1.00, 'NIU', NULL, 21, 10, 0, 1, 5.00),
+(29, 'NOFERTYL AMP. 1ML ABBOTT', '7702870002636', 22.00, 17.00, 1.00, 'NIU', NULL, 77, 10, 0, 1, 2.00),
+(30, 'MESQUIL AMP. 1ML INDUFAR', '7840653007642', 20.00, 10.00, 1.00, 'NIU', NULL, 77, 10, 0, 1, 2.00),
+(31, 'CYCLOFEMINA AMP. 0.50ML', '7750266000490', 20.00, 16.00, 3.00, 'NIU', NULL, 77, 10, 0, 1, 3.00),
+(32, 'SOLUNA NF AMP. 1 ML MEDIFARMA', '7759307016957', 20.00, 15.00, 1.00, 'NIU', NULL, 77, 10, 0, 1, 3.00),
+(33, 'GLUCOPLUS SACHETS X 10GR. NATURAB', '0781100159392', 3.00, 1.67, 27.00, 'NIU', NULL, 2, 10, 0, 1, 15.00),
+(34, 'MAGNE-Q  EFERVECENTE SOBRE X 5GR FALAB PERÚ', '11111', 1.50, 0.90, 22.00, 'NIU', NULL, 2, 10, 0, 1, 15.00),
+(35, 'MAGNESOL NARANJA EFERV. SOBRE X 5GR  ', '7758686000090', 1.50, 0.90, 1.00, 'NIU', NULL, 2, 10, 0, 1, 33.00),
+(38, 'VITAMINA E CAP. 400 UI PHARMA GENERICOS', '7759765001922', 0.50, 0.30, 10.00, 'NIU', NULL, 2, 10, 0, 1, 30.00),
+(39, 'BONA B FORTE', '8904324905800', 1.50, 0.90, 33.00, 'NIU', NULL, 2, 10, 0, 1, 30.00),
+(40, 'COMPLEJO B FORTE CAP. BLANDA SHERFARMA', '7751946000878', 0.50, 0.35, 200.00, 'NIU', NULL, 2, 10, 0, 1, 50.00),
+(41, 'SILDEREC 100MG. TAB. RECUBIERTA  LUXOR', '7755251000226', 6.00, 2.50, 1.00, 'NIU', NULL, 1, 10, 0, 1, 5.00),
+(42, 'PIEL SEX & LUB GEL LUBRICANTE 120ML ', '8852961019605', 26.00, 12.00, 1.00, 'NIU', NULL, 74, 10, 0, 1, 1.00),
+(43, 'SOLUTRES AMP. X 1ML MEDIFARMA ', '7759307008181', 26.00, 18.00, 1.00, 'NIU', NULL, 77, 10, 0, 1, 2.00),
+(44, 'SOLOUNA 5 AMP. X  1ML MEDIFARMA', '7759307008167', 20.00, 14.00, 1.00, 'NIU', NULL, 77, 10, 0, 1, 3.00),
+(45, 'LEVONOGESTREL 0.75 MG TAB. LINEA DCI', '7750936010163', 7.00, 1.50, 2.00, 'NIU', NULL, 77, 10, 0, 1, 10.00),
+(46, 'MIXYDAY TAB. 1.5 MG OQPHARMACEUTICAL', '7759765000512', 20.00, 2.50, 13.00, 'NIU', NULL, 77, 10, 0, 1, 10.00),
+(47, 'SILDENAZINN TAB. 100 MG DRONNVELS', '7752735000178', 6.00, 3.00, 13.00, 'NIU', NULL, 1, 10, 0, 1, 8.00),
+(50, 'SILDENAFILO 100MG TAB. MARFAN', '7750831212341', 3.00, 1.50, 1.00, 'NIU', NULL, 1, 10, 0, 1, 5.00),
+(51, 'CARBOCALCIO CAP. BLANDA SHERFARMA', '7751946000779', 1.50, 1.00, 85.00, 'NIU', NULL, 2, 10, 0, 1, 30.00),
+(52, 'MANTEQUILLA DE CACAO LIPSALV ', '7750215161470', 1.00, 0.50, 28.00, 'NIU', NULL, 50, 10, 0, 1, 15.00),
+(53, 'SULFA ALKO POLVO SOBRE 2GR. ', '1111111', 1.50, 1.00, 26.00, 'NIU', NULL, 50, 10, 0, 1, 8.00),
+(54, 'SUPOSITORIO DE GLICERINA ADULTOS GENCOPHARMACEUTICAL', '7752092000019', 1.00, 0.50, 2.00, 'NIU', NULL, 50, 10, 0, 1, 12.00),
+(55, 'SUPOSITORIO DE GLICERINA PARA NIÑOS', '7752092000026', 1.00, 0.50, 95.00, 'NIU', NULL, 50, 10, 0, 1, 15.00),
+(56, 'CURITAS FAMILY DOCTOR ', '77500445140607', 0.10, 0.06, 57.00, 'NIU', NULL, 50, 10, 0, 1, 30.00),
+(57, 'BENDI - C 25cm X 1y MICROPOROSO', '775283600145', 2.00, 1.00, 3.00, 'NIU', NULL, 50, 10, 0, 1, 3.00),
+(58, 'BENDI-C MICROPOROSO ESPARADRAPO 2.5 cmx 5y ', '7752836000053', 3.00, 2.50, 1.00, 'NIU', NULL, 50, 10, 0, 1, 3.00),
+(59, 'ESPARADRAPO SURGICAL 2.5 cm X 5m ', '7754518001518', 5.00, 3.50, 1.00, 'NIU', NULL, 50, 10, 0, 1, 3.00),
+(60, 'ESPARADRAPO SURGICAL 1.25 cm x 5m ', '7755969001003', 2.50, 2.00, 2.00, 'NIU', NULL, 50, 10, 0, 1, 3.00),
+(61, 'SALES DE HIDRATACION ORAL SOBRE X 20.5 G. PHARMAGENERICOS', '7759765003735', 2.00, 1.00, 25.00, 'NIU', NULL, 50, 10, 0, 1, 15.00),
+(62, 'NYLON AZUL 3-0 TC 25', '7757093629016', 5.00, 3.00, 3.00, 'NIU', NULL, 50, 10, 0, 1, 5.00),
+(63, 'NYLON AZUL 4-0 TC 25 ', '7757093627982', 5.00, 3.00, 4.00, 'NIU', NULL, 50, 10, 0, 1, 5.00),
+(64, 'NYLON AZUL 5-0 TC 20', '7757093627975', 5.00, 3.50, 2.00, 'NIU', NULL, 50, 10, 0, 1, 5.00),
+(65, 'JELONET 10CM X 10 CM', '5000223421946', 5.00, 4.50, 2.00, 'NIU', NULL, 50, 10, 0, 1, 2.00),
+(66, 'TEGADERM FILM 6cm x 7cm ', '0100707387509484', 4.50, 3.00, 2.00, 'NIU', NULL, 50, 10, 0, 1, 2.00),
+(67, 'TEGADERM FILM 3M 10cm x 12 cm', '01007007387509507', 7.00, 5.00, 4.00, 'NIU', NULL, 50, 10, 0, 1, 4.00),
+(68, 'STERI STRIP 3M NARANJA', '112212121', 12.00, 9.00, 1.00, 'NIU', NULL, 50, 10, 0, 1, 2.00),
+(69, 'BOLSA COLECTORA DE ORINA PEDIATRICO', '326232323', 2.50, 1.50, 11.00, 'NIU', NULL, 50, 10, 0, 1, 5.00),
+(70, 'PAR GUANTES DE EXAMEN DE LATEX T/S', '7751204001043', 1.00, 0.50, 17.00, 'NIU', NULL, 50, 10, 0, 1, 20.00),
+(71, 'GUANTES DE EXAMEN DE LATEX T/L MEDICAL B&T', '7751204001067', 1.00, 0.50, 4.00, 'NIU', NULL, 50, 10, 0, 1, 15.00),
+(72, 'SAL DE ANDREWS TRIPLE ACCION SOBRE 7.9 G', '775930706453', 1.50, 1.00, 30.00, 'LT', NULL, 50, 10, 0, 1, 30.00),
+(73, '3 - GLEL SUSP. ORAL SOBRE X 10 ML', '8806718031938', 2.50, 1.50, 23.00, 'NIU', 'imagen/productos/IMG_73697892682.png', 78, 10, 0, 1, 10.00),
+(74, 'METRONIDAZOL 125mg/5ml JBE. 120 ML PORTUGAL', '7750215796559', 8.00, 5.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(75, 'METRONIDAZOL 125mg/5ml JBE. 60 ML PORTUGAL', '7750215796535', 6.80, 5.00, 2.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(76, 'AMBROXOL JBE PEDIATRICO 15mg/5ml PORTUGAL', '7750215027004', 8.00, 3.65, 6.00, 'NIU', NULL, 83, 10, 0, 1, 2.00),
+(77, 'AMBROXOL ADULTO 30mg/5ml PORTUGAL ', '7750215022467', 8.00, 3.60, 1.00, 'NIU', NULL, 83, 10, 0, 1, 3.00),
+(78, 'AMBROXOL JBE ADULTO 30mg/5ml FARMINDUSTRIA', '7750304964715', 8.00, 4.00, 2.00, 'NIU', NULL, 83, 10, 0, 1, 3.00),
+(79, 'DEXTROMETORFANO JBE 15mg/5ml IQFARMA 120ML', '77505408', 7.00, 3.87, 4.00, 'NIU', NULL, 83, 10, 0, 1, 4.00),
+(80, 'IBUPROFENO JBE 100mg/5ml x 120 ML IQFARMA', '7750942008208', 8.00, 4.00, 2.00, 'NIU', NULL, 83, 10, 0, 1, 3.00),
+(81, 'IBUPROFENO JBE 100mg/5ml x 60ml FARMINDUSTRIA', '7750304004817', 6.00, 3.50, 4.00, 'NIU', NULL, 83, 10, 0, 1, 4.00),
+(82, '´PARACETAMOL JBE 120mg/5ml X 120ML PORTUGAL', '7750215575819', 7.50, 4.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 4.00),
+(83, 'PREDNISONA 5mg/5ml X 60ML PORTUGAL', '7750215007433', 8.00, 4.96, 6.00, 'NIU', NULL, 83, 0, 0, 1, 0.00),
+(84, 'LACTULOSA JBE X 180ML ACFARMA', '7750936000362', 16.00, 12.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(85, 'HIDROXIDO DE ALUMINIO + H.MAGNESIO X 120ml PORTUGAL', '7750215004531', 12.00, 7.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(86, 'ERITROMICINA ETILSUCCINATO JBE 250mg/5ml X 60ML PORTUGAL', '7750215397473', 8.70, 5.00, 2.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(87, 'CEFALEXINA JBE 250mg/5ml X 60ML GENFAR', '7702605150502', 9.00, 5.90, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(88, 'CEFADROXILO JBE 250mg/5ml X 100ML ACFARMA', '7750936300493', 16.00, 9.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(89, 'CEFACLOR JBE 250mg/5ml  X 75 ml AC FARMA ', '7750936250385', 19.50, 17.66, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(90, 'CLARITROMICINA JBE 250mg/5ml PORTUGAL X 50 ML', '7750215007167', 16.00, 14.40, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(91, 'AMOXICILINA 250mg/5ml JBE X 60ML IQFARMA', '77505330', 6.00, 3.50, 2.00, 'NIU', NULL, 83, 10, 0, 1, 4.00),
+(92, 'AMOXICILINA JBE 250mg/5ml X 60ML PORTUGAL', '7750215004685', 6.00, 3.50, 1.00, 'NIU', NULL, 83, 10, 0, 1, 4.00),
+(93, 'AZITROMICINA JBE 200mg/5ml X 30ML DAXOLAB', '0781100159262', 12.00, 9.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(94, 'AZITROMICINA JBE 200mg/5ml X 15 ML IQFARMA', '7750942009229', 12.00, 8.82, 2.00, 'NIU', NULL, 83, 10, 0, 1, 3.00),
+(95, 'SULFAMETOXAZOL + TRIMETOPRIMA 400mg/80mg/5ml X60ML PORTUGAL', '7750215869154', 6.00, 3.33, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(96, 'SULFAMETOXAZOL + TRIMETOPRIMA 200mg/40mg/5ml X60ML INDUQUIMICA', '7757181000703', 5.00, 3.30, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(97, 'HEDERA HELIX 39.5mg/5ml X 100ML GENFAR', '77059559881023', 15.00, 12.70, 2.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(98, 'FURAZOLIDONA JBE 50mg/5ml X 120ML PORTUGAL', '7750215025369', 8.00, 4.66, 2.00, 'NIU', NULL, 83, 10, 0, 1, 2.00),
+(99, 'CETIRIZINA JBE 5ml/5ml X 60ML PORTUGAL', '7750215003299', 6.50, 3.50, 2.00, 'NIU', NULL, 83, 10, 0, 1, 3.00),
+(100, 'CLORFENAMINA JBE 2mg/5ml X 120ML PORTUGAL', '7750215728246', 5.50, 2.72, 2.00, 'NIU', NULL, 83, 10, 0, 1, 3.00),
+(101, 'LORATADINA JBE 5mg/5ml X 60ML', '7750215002834', 6.50, 3.98, 2.00, 'NIU', NULL, 83, 10, 0, 1, 2.00),
+(102, 'KIDS PARACETAMOL JBE X 160mg/5ml X 90ML GENFAR', '7705959882662', 9.80, 5.09, 2.00, 'NIU', NULL, 83, 10, 0, 1, 3.00),
+(103, 'REPRIMAN JBE 250mg/5ml X 50ML QUILAB', '7751257021562', 13.00, 9.80, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(104, 'MUCOCAR JBE 100mg/5ml X 120ML EUROFARMA', '7758112000601', 17.80, 13.50, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(105, 'BRONCOPHAR PLUS JBE X 120ML FARVET', '7750625000581', 14.00, 10.13, 2.00, 'NIU', NULL, 83, 10, 0, 1, 2.00),
+(106, '7757165000866', 'BRONCOXILINA JBE AMOX+BROM. 4mg/5ml x 60ML JOBAL', 17.00, 9.00, 0.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(107, 'BIOBRONCOL JBE CEFALEXINA + AMBROXOL 250mg+15mg IQFARMA', '7750942000677', 23.00, 17.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(108, 'ELIPRIM FORTE JBE SULFA+TRIM. 400mg/80mg/5ml  ELIFARMA', '7751859000088', 18.00, 12.00, 2.00, 'NIU', NULL, 83, 10, 0, 1, 2.00),
+(109, 'FLEMING JBE AMOX+AC. CLAV. 250mg+62.5mg/5ml MEDREICH ', '8901040463607', 23.00, 12.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(110, 'ZITROPHARM JBE. AZITROMICINA 200mg/5ml DOLAPHARM', '7754690020215', 17.00, 13.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(111, 'CETRICET JBE 2.5mg/5ml DOLAPHARM', '7754690020253', 10.00, 8.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(112, 'MALDEX JBE. X 120 ML ', '7751207002610', 18.00, 14.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(113, 'SINFLEMAX COMPUESTO PED. AMBROXOL+CLENB. 7.5mg/5ml x 120ML', '7753658001358', 14.50, 10.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(114, 'MUCOBIOTIC COMP JBE. AMBROXOL + CLENB. 7.5ml/0.005mg/5ml  SIEGFRIED', '7754981357105', 18.00, 12.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(115, 'CLENBROX JBE AMBROXOL/CLEMBUTEROL  100ML ANDREU', '7750675000043', 15.00, 10.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(116, 'CODEINA FOSFATO JBE 15mg/5ml ROXANA', '77502810753350', 16.00, 12.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(117, 'GASTRORAL JBE X 800mg+60mg/10ml IQFARMA', '7750942001582', 21.00, 14.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(118, 'PARDIL JBE NITAZOXANIDA 100mg/5ml X 60ML PHARMED CORP', '7753748000469', 18.00, 12.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(119, 'TERMOMETRO DIGITAL TOP MEDIC ', '7754518000900', 10.00, 6.00, 3.00, 'NIU', NULL, 21, 10, 0, 1, 3.00),
+(120, 'TERMOMETRO DIGITAL QMEDIC', '13213132', 10.00, 6.00, 1.00, 'NIU', NULL, 21, 10, 0, 1, 3.00),
+(121, 'CEFTRIABIOT AMP. I.M C/SOLVENTE X 1Gr. FALABPERU', '12564568', 12.50, 6.00, 7.00, 'NIU', NULL, 84, 10, 0, 1, 3.00),
+(122, 'CEFALOGEN AMP. X 1Gr.  I.M. EUROFARMA', '781317207311', 12.50, 6.00, 1.00, 'NIU', NULL, 84, 10, 0, 1, 3.00),
+(123, 'RANITIDINA INY. I.V, I.M 50mg/2ml CORPORACION FS', '787878', 6.80, 4.00, 10.00, 'NIU', NULL, 84, 10, 0, 1, 3.00),
+(124, 'KETOPAN 100mg/5ml I.V OTARVASQ', '775370900071', 6.50, 2.50, 18.00, 'NIU', NULL, 84, 10, 0, 1, 3.00),
+(125, 'KETOPROFENO I.M 100mg/2ml GENFAR', '7702605151325', 6.50, 2.03, 12.00, 'NIU', NULL, 84, 10, 0, 1, 3.00),
+(126, 'TRAMADOL 50mg/ml I.M/I.V GENFAR', '7702605154029', 5.00, 3.50, 4.00, 'NIU', NULL, 84, 10, 0, 1, 2.00),
+(127, 'ORFENADRINA I.M/I.V 60mg/2ml DIPHASAC', '465464512', 2.50, 1.50, 10.00, 'NIU', NULL, 84, 10, 0, 1, 6.00),
+(130, 'METAMIZOL I.M/I.V DIPHASAC', '6974499190136', 3.50, 2.00, 52.00, 'NIU', NULL, 84, 10, 0, 1, 6.00),
+(131, 'AB-BRONCOL  NF 1200 I.M MEDIFARMA ', '7759307004374', 26.00, 22.00, 0.00, 'NIU', NULL, 84, 10, 0, 1, 1.00),
+(132, 'ZEGRAMIN dimenhidrinato 50mg/5ml I.V/I.M JPS SAC', '7755860000471', 3.50, 2.00, 55.00, 'NIU', NULL, 84, 10, 0, 1, 6.00),
+(133, 'DEXCORTIL dexametasona AMP. I.M/I.V DANY', '7750500001658', 2.50, 1.30, 16.00, 'NIU', NULL, 84, 10, 0, 1, 5.00),
+(134, 'DEXAMETASONA 4mg/2ml INY. I.M/I.V M&F', '6972544372148', 2.00, 0.80, 20.00, 'NIU', NULL, 84, 10, 0, 1, 10.00),
+(135, 'FENACOBAL INY. diclofenaco 75mg/3ml V.I SEBALFARMA', '7759405000001', 2.50, 1.00, 10.00, 'NIU', NULL, 84, 10, 0, 1, 3.00),
+(136, 'DICLOFIX diclofenaco INY. 75mg/3ml V.I DANY', '7750500001115', 2.00, 1.00, 16.00, 'NIU', NULL, 84, 10, 0, 1, 5.00),
+(137, 'SUEROX BEBIDA X 630ML ', '650240069192', 6.50, 4.50, 10.00, 'NIU', NULL, 8, 10, 0, 1, 3.00),
+(138, 'MUPIROCINA 2% UNG. X 15g AC F', '7750936012877', 21.00, 18.00, 1.00, 'NIU', NULL, 35, 10, 0, 1, 1.00),
+(139, 'ACICLOVIR UNG. X 15 gr. GENFAR', '7702605150052', 8.50, 6.46, 0.00, 'NIU', NULL, 35, 10, 0, 1, 1.00),
+(140, 'METACAIN LIDOCAINA 2% JALEA X 10GR GALENIC ', '896001553472', 12.00, 8.00, 1.00, 'NIU', NULL, 35, 10, 0, 1, 1.00),
+(141, 'CLOTRIMAZOL 1% CREMA X 20gr. AC FARMA', '7750936012853', 3.50, 2.80, 1.00, 'NIU', NULL, 35, 10, 0, 1, 3.00),
+(142, 'CLOBETASOL 0.05% CREMA X 25Gr. FARMINDUSTRIA', '7750304000086', 4.80, 3.00, 1.00, 'NIU', NULL, 35, 10, 0, 1, 3.00),
+(143, 'ACICLOVIR 5% CREMA X 5Gr, PORTUGAL', '7750215001905', 3.50, 2.00, 0.00, 'NIU', NULL, 35, 10, 0, 1, 2.00),
+(144, 'ROXTIL B CREMA X 20Gr. ROXFARMA', '7750281001717', 9.00, 5.00, 2.00, 'NIU', NULL, 35, 10, 0, 1, 3.00),
+(145, 'BEXADERM CREMA X 20Gr. PORTUGAL', '7750215015810', 9.00, 5.00, 1.00, 'NIU', NULL, 35, 10, 0, 1, 3.00),
+(146, 'DICLOFENACO 1% GEL X 50Gr. PORTUGAL', '7750215005675', 6.00, 4.50, 1.00, 'NIU', NULL, 35, 10, 0, 1, 3.00),
+(147, 'CLOBETASOL 0.05% UNGUENTO X 25Gr. AC FARMA', '7750936065897', 4.80, 3.50, 1.00, 'NIU', NULL, 35, 10, 0, 1, 1.00),
+(148, 'TERBINAFINA CREMA 1% X 20Gr. GENFAR', '7702605152988', 6.80, 4.00, 1.00, 'NIU', NULL, 35, 10, 0, 1, 2.00),
+(149, 'CLOTRIMAZOL 1% CREMA VAGINAL C/6 APLICAD. X 5 gr. Genfar', '7702605150724', 14.00, 11.00, 4.00, 'NIU', NULL, 35, 10, 0, 1, 1.00),
+(150, 'TERRAMISOL - A UNG. X 6 Gr. LANSIER', '7750778000094', 14.00, 11.00, 1.00, 'NIU', NULL, 35, 10, 0, 1, 1.00),
+(151, 'VICK VAPORUB LATA X 12 Gr. ', '7501001246730', 4.80, 4.00, 11.00, 'NIU', NULL, 85, 10, 0, 1, 6.00),
+(152, 'BISMUCAR JBE X 340 ML EUROFARMA ', '7758112000335', 22.80, 18.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(153, 'ULCIMET JBE X 150ML AC FARMA', '7750936010330', 14.00, 11.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(154, 'SUBSALICILATO DE BISMUTO JBE X 150ML PORTUGAL', '7750215189757', 12.50, 10.00, 1.00, 'BOX', NULL, 83, 10, 0, 1, 1.00),
+(155, 'RHINO-CLO 0.9% SOLUCION GOTAS NASALES EUROFARMA', ' 7758112002674', 10.00, 7.00, 1.00, 'NIU', NULL, 86, 10, 0, 1, 1.00),
+(157, 'BADITED CIPROFLOXACINO 0.3% SOL. OFT. X 5ML JPS', '7755860001225', 17.00, 12.00, 1.00, 'NIU', NULL, 86, 10, 0, 1, 1.00),
+(158, 'GENTAMICINA 0.3% SOL. OFT. GOTAS VITALINE', '7752343000010', 10.00, 7.00, 1.00, 'NIU', NULL, 86, 10, 0, 1, 1.00),
+(159, 'PARACETAMOL 100mg/ml GOTAS X 10ml PORTUGAL', '7750215074299', 5.80, 3.00, 1.00, 'NIU', NULL, 86, 10, 0, 1, 1.00),
+(160, 'SIMETIBAL SUSP. ORAL GOTAS X 15ML JOBAL', '7757165000750', 15.00, 7.00, 1.00, 'NIU', NULL, 86, 10, 0, 1, 1.00),
+(161, 'METAMIZOL SODICO 500mg/ml gotas x 10ML PORTUGAL', '7750215002285', 6.00, 4.00, 1.00, 'NIU', NULL, 86, 10, 0, 1, 1.00),
+(162, 'XENLER GOTAS SOL. ORAL X 15 ML ROXFARMA', '775281000260', 15.00, 10.00, 1.00, 'NIU', NULL, 86, 10, 0, 1, 1.00),
+(163, 'OTIDOL SOL. OTICA X 5ml LANSIER', '7750778000278', 14.00, 10.00, 1.00, 'NIU', NULL, 86, 10, 0, 1, 1.00),
+(164, 'HUMED HIPROMELOSA 0.3% LAGRIMAS ART. X 15 ML ', '7750778592292', 13.00, 9.00, 1.00, 'NIU', NULL, 86, 10, 0, 1, 1.00),
+(165, 'HONGONICOL 1% TERBINAFINA SOL. PULV. CUTANEA X 30 ml FARMASUR', '7755177000355', 16.00, 11.00, 1.00, 'NIU', NULL, 87, 10, 0, 1, 1.00),
+(166, 'AMIGDAZOL B SOL. PULV. SPRAY BUCAL X 20 ml. MARCOS', '7751207001781', 19.80, 14.00, 1.00, 'NIU', NULL, 88, 10, 0, 1, 1.00),
+(167, 'SALBUTAMOL 100mcg/dosis INH. LABOT', '7751128001396', 10.00, 8.00, 1.00, 'NIU', NULL, 45, 10, 0, 1, 1.00),
+(168, 'ALKOYODO SOL. TÓPICA X 120ml ALKOFARMA', '7753464000569', 12.00, 6.00, 1.00, 'NIU', NULL, 87, 10, 0, 1, 1.00),
+(169, 'RINOMAR BABIES SOL. PULV. NASAL X 30ml BONAPHARM', '8436542625326', 28.00, 12.00, 1.00, 'NIU', NULL, 88, 10, 0, 1, 1.00),
+(170, 'KIDS PARACETAMOL 100mg/ml SOL. ORAL GENFAR', '7705959882662', 12.00, 8.00, 2.00, 'NIU', NULL, 86, 10, 0, 1, 1.00),
+(171, 'SALBUTAMOL 100mcg/dosis INH. CORPORACION FS', '7750453600182', 10.00, 8.00, 1.00, 'NIU', NULL, 45, 10, 0, 1, 1.00),
+(172, 'METRONIDAZOL 500mg OVULOS PORTUGAL', '7750215001806', 2.00, 1.00, 2.00, 'NIU', NULL, 89, 10, 0, 1, 1.00),
+(173, 'LIDOCAINA INY. 2% C/EPINEFRINA I.E LUSA', '14564561415', 6.00, 4.00, 3.00, 'NIU', NULL, 84, 10, 0, 1, 1.00),
+(174, 'DASANTRANEX- V ACIDO TRANEXANICO V.I SANDAVA', '56425124114', 23.00, 23.00, 1.00, 'NIU', NULL, 84, 10, 0, 1, 1.00),
+(175, 'KETORGES - 60 KETOROLACO 60MG/2ML INY I.M ', '4554545454', 4.00, 4.00, 1.00, 'NIU', NULL, 84, 10, 0, 1, 0.00),
+(176, 'AMIKANEN 500mg iny. I.M/I.V OTARVASQ ', '4556454545465', 4.00, 4.00, 1.00, 'BOX', NULL, 84, 10, 0, 1, 0.00),
+(177, 'BICARBONATO DE SODIO INY. V.I PHARMA GENERICOS', '787878', 6.00, 4.00, 4.00, 'NIU', NULL, 84, 10, 0, 1, 0.00),
+(178, 'HIERROMIN 100mg/5ml SOL. INY. I.V. OQPHARMACEUTICAL', '7759765000031', 10.00, 7.00, 4.00, 'NIU', NULL, 84, 10, 0, 1, 2.00),
+(179, 'AGUA ESTERIL PARA INY. X 5ml. I.M/I.V PHARMA GENERICOS', '7759765001175', 1.00, 0.60, 35.00, 'NIU', NULL, 84, 10, 0, 1, 5.00),
+(180, 'CEFTRIAXONA 1 Gr. POLVO INY. I.M/I.V M&F', '6921875010335', 3.00, 1.70, 23.00, 'NIU', NULL, 87, 10, 0, 1, 10.00),
+(181, 'CEFTRIAXONA 1Gr. P/SOL INY I.M/I.V CORP. FS', ' 7750453600106', 3.00, 1.70, 20.00, 'NIU', NULL, 84, 10, 0, 1, 7.00),
+(182, 'B-VAT FORTE INY. X 2 ML I.M/I.V DROPESAC', '7754102000903', 28.50, 18.00, 20.00, 'NIU', NULL, 84, 10, 0, 1, 3.00),
+(183, 'TU-TEST  casette test embarazo ', '7759405000490', 8.00, 2.80, 6.00, 'NIU', NULL, 21, 10, 0, 1, 3.00),
+(184, 'CLENBULER DILAT FORTE AMBROXOL+CLEMB. 15mg/0.01mg/5ml JBE. DOLAPHARM ', '7754690020260', 17.00, 13.50, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(185, 'BRONCOMOXIL JBE. AMOX+BROMH. 250mg/4mg DOLAPHARM', '7754690020208', 18.00, 13.00, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(186, 'TOTAL FLEXX FORTE 2% GEL ', '7759405000056', 16.00, 11.10, 1.00, 'NIU', NULL, 35, 10, 0, 1, 1.00),
+(187, 'ACETILCISTEINA 600 mg. sobre x 2 gr. LABOGEN', '775229001420', 2.00, 0.82, 41.00, 'NIU', NULL, 90, 10, 0, 1, 10.00),
+(188, 'ACETILCISTEINA 200 mg. sobre x 2 gr. LABOGEN', '7752329001413', 1.50, 0.67, 42.00, 'NIU', NULL, 90, 10, 0, 1, 10.00),
+(189, 'ACIDO ACETILSALICÍLICO 100mg. ', '7751128001341', 0.20, 0.10, 47.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(190, 'ACIDO FOLICO 0.5 mg. tab. IQFARMA', ' 7750942001452', 0.20, 0.10, 10.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(191, 'ALBENDAZOL 200mg. TAB. IQFARMA', '7750942450069', 0.30, 0.10, 86.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(192, 'ATENOLOL 100 mg tab. IQ. FARMA', '7750942000110', 0.20, 0.10, 90.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(193, 'AMOXICILINA 500 mg. tab. PORTUGAL', '7750215022924', 0.35, 0.25, 43.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(194, 'AMLODIPINO 5mg. tab. FARMINDUSTRIA', '7750304005586', 0.15, 0.10, 90.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(195, 'AMPICILINA CAP. 500mg. PORTUGAL', '7750215005767', 0.50, 0.35, 92.00, 'NIU', NULL, 92, 10, 0, 1, 20.00),
+(196, 'ATORVASTATINA 40mg. TAB. JPS', '775376000457', 0.45, 0.35, 5.00, 'NIU', NULL, 91, 10, 0, 1, 5.00),
+(197, 'ATORVASTATINA 40MG TAB. OTARVASQ', '7753709000576', 0.45, 0.35, 100.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(198, 'ATORVASTATINA 20MG TAB. AC FARMA', '7750936011306', 0.25, 0.15, 70.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(199, 'ATORVASTATINA 10MG. TAB. AC FARMA', '7750936011276', 0.20, 0.10, 40.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(200, 'CEFALEXINA 500MG. TAB. REC. AC FARMA', '7750936007873', 0.80, 0.45, 140.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(201, 'BISACODILO 5MG TAB. AC FARMA', '7750936007033', 0.50, 0.25, 67.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(202, 'CAPTOPRIL 25MG. TAB. FARMINDUSTRIA', '7750304106139', 0.10, 0.06, 70.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(203, 'CETIRIZINA 10MG. TAB. IQFARMA', '7750942529970', 0.15, 0.70, 2.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(204, 'CETIRIZINA 10MG. TAB. REC. ACFARMA', '7750936014260', 0.15, 0.80, 90.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(205, 'CIPROFLOXACINO 500MG. TAB. REC. PHARMA GENERICOS', '7759765003445', 0.35, 0.25, 100.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(206, 'CIPROFLOXACINO 500MG. TAB. REC. PORTUGAL', '7750215496855', 0.35, 0.25, 93.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(207, 'CIPROFLOXACINO 500MG. TAB. REC. FARMINDUSTRIA', '7750304000024', 0.35, 0.25, 4.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(208, 'CLARITROMICINA 500MG. TAB REC. ACFARMA', '7750936002700', 1.50, 1.00, 114.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(209, 'CLINDAMICINA 300MG. CAP. PORTUGAL', '77502159622480', 0.80, 0.44, 97.00, 'NIU', NULL, 92, 10, 0, 1, 20.00),
+(210, 'CLINDAMICINA 300MG. CAP. FARMINDUSTRIA', '775034007238', 0.85, 0.55, 120.00, 'NIU', NULL, 92, 10, 0, 1, 20.00),
+(211, 'DOBESILATO CALCICO 500MG. CAP. LABOGEN', '7752329001376', 0.60, 0.36, 70.00, 'NIU', NULL, 92, 10, 0, 1, 30.00),
+(212, 'DEXAMETASONA 4MG. TAB. FARMINDUSTRIA', '775034005531', 0.50, 0.16, 109.00, 'NIU', NULL, 91, 10, 0, 1, 40.00),
+(213, 'CLORFENAMINA 4MG. TAB. PORTUGAL', '7750215001721', 0.15, 0.04, 287.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(214, 'DOXICICLINA 100MG. TAB. REC. ACFARMA', '7750936005848', 0.30, 0.19, 98.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(215, 'DIMENHIDRINATO 50MG. TAB. ', '111111111111111111', 0.50, 0.20, 6.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(216, 'DICLOFENACO 50MG. TAB.  IQFARMA', '7750942008154', 0.25, 0.16, 12.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(217, 'DICLOXACILINA 500MG. CAP. GENFAR', '7702605150793', 0.60, 0.31, 1.00, 'NIU', NULL, 92, 10, 0, 1, 30.00),
+(218, 'ENALAPRIL 20MG. TAB. PORTUGAL', '7750215003756', 0.15, 0.08, 40.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(219, 'ENALAPRIL 20MG. TAB. FARMINDUSTRIA', '7750304309967', 0.15, 0.10, 60.00, 'NIU', NULL, 91, 10, 0, 1, 40.00),
+(220, 'ENALAPRIL 10MG. TAB. PORTUGAL', '7750215003749', 0.10, 0.06, 190.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(221, 'ERITROMICINA 500MG. TAB. GENFAR', '7702605150878', 0.85, 0.53, 40.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(222, 'ESOMEPRAZOL 40MG. TAB. REC. ACFARMA', '7750936008405', 0.90, 0.55, 20.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(223, 'ESOMEPRAZOL 20MG. TAB REC. ACFARMA', '7750936008177', 0.60, 0.35, 2.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(224, 'ETORICOXIB 120MG. TAB. DAXOLAB', '0781100159170', 2.50, 0.83, 80.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(225, 'ETORICOXIB 90MG. TAB. REC. BONAPHARM', '8904112521588', 1.50, 0.62, 2.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(226, 'ELUDE LEVONOGESTREL 1.5MG. TAB REC. AVANX LAB.', '896005116772', 20.00, 2.80, 60.00, 'NIU', NULL, 91, 10, 0, 1, 5.00),
+(227, 'NOPUCID 10 2EN1 SHAMPOO SACHET ABBOTT', ' 7750304005845', 3.50, 3.00, 36.00, 'NIU', NULL, 33, 10, 0, 1, 10.00),
+(228, 'ESPIRONOLACTONA 25MG. TAB. REC. FARMINDUSTRIA', '7750304005906', 0.35, 0.29, 58.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(229, 'GABAPENTINA 300MG. CAP. IQFARMA', '7750942001827', 0.35, 0.20, 13.00, 'NIU', NULL, 92, 10, 0, 1, 10.00),
+(230, 'FENAZOPIRIDINA 100MG. TAB. REC. PORTUGAL', '7750215030295', 0.25, 0.13, 90.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(231, 'FUROSEMIDA 40MG. TAB. GENFAR', '7702605151004', 0.20, 0.11, 50.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(232, 'GENFIBROZILO 600MG. TAB. REC. PORTUGAL', '7750215002698', 0.25, 0.13, 100.00, 'NIU', NULL, 91, 10, 0, 1, 40.00),
+(233, 'FLUCONAZOL 150MG. CAP. PORTUGAL', '7750215432976', 1.00, 0.29, 85.00, 'NIU', NULL, 92, 10, 0, 1, 10.00),
+(234, 'IBUPROFENO 400MG. TAB.REC. GENFAR', '7702605151196', 0.20, 0.13, 75.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(235, 'HIDROCLOROTIAZIDA 25MG. IQFARMA', '7750942000936', 0.20, 0.12, 40.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(236, 'GLIBENCLAMIDA 5MG. TAB. IQFARMA', '7750942778187', 0.15, 0.05, 30.00, 'NIU', NULL, 91, 10, 0, 1, 40.00),
+(237, 'IBUPROFENO 800MG. TAB. GENFAR', '7702605151219', 0.45, 0.20, 12.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(238, 'IRBESARTAN 150MG. TAB ACFARMA', '7750936002281', 23.00, 18.50, 1.00, 'BOX', NULL, 91, 10, 0, 1, 1.00),
+(239, 'IRBESARTAN 300MG. TAB. PORTUGAL', '7750215008744', 0.90, 0.60, 50.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(240, 'IBESARTAN 150MG. TAB. PORTUGAL', '7750215008737', 0.50, 0.32, 94.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(241, 'IRBESARTAN 150 MG. TAB. LABOGEN', '7752329001918', 0.50, 0.35, 10.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(242, 'KETOROLACO 10MG. TAB. PORTUGAL', '7750215001868', 0.20, 0.07, 98.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(243, 'LEVOFLOXACINO 500MG. TAB. ACFARMA', '7750936013485', 1.50, 0.55, 48.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(244, 'LOPERAMIDA 2MG. TAB. PORTUGAL', '7750215005873', 0.20, 0.08, 90.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(245, 'LEVOTIROXINA SODICA 100mcg. TAB. ACFARMA', '7750936013683', 0.50, 0.29, 100.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(246, 'LOSARTAN 50MG. TAB. ACFARMA', '7750936013218', 0.20, 0.10, 40.00, 'NIU', NULL, 91, 10, 0, 1, 40.00),
+(247, 'LOSARTAN POTASICO 50MG. TAB. PORTUGAL', '7750215026243', 0.20, 0.90, 159.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(248, 'TERMOMETRO CLINICAL THERMOMETER FREE MERCURY', '5555555', 14.00, 9.72, 6.00, 'NIU', NULL, 41, 10, 0, 1, 2.00),
+(249, 'GUANTES DE LATEX T/M MEDICAL ', '7751204001050', 16.50, 13.96, 0.00, 'BOX', NULL, 50, 0, 0, 1, 0.00),
+(250, 'COBAVIT HIDROXICOBALAMINA 1mg/ml iny. I.M DANY', '7750500001924', 4.50, 1.00, 10.00, 'NIU', NULL, 84, 10, 0, 1, 10.00),
+(251, 'DICLOXACILINA 500mg. CAP. PORTUGAL', '7750215004722', 0.45, 0.16, 100.00, 'NIU', NULL, 92, 10, 0, 1, 30.00),
+(252, 'LACTULOSA JBE X 100ML ACFARMA', '7750936011672', 12.50, 7.70, 1.00, 'NIU', NULL, 50, 10, 0, 1, 1.00),
+(253, 'LIDOCAINA SIN PRESERVANTE 2% INY.', '775380300625', 6.00, 3.15, 4.00, 'NIU', NULL, 50, 10, 0, 1, 2.00),
+(254, 'DICLOFENACO 75MG/3ML INY. I.M DIPHASAC', '6974499190358', 2.00, 0.38, 50.00, 'NIU', NULL, 84, 10, 0, 1, 10.00),
+(255, 'DEXAMETASONA 4MG/2ML INY. I.M/I.V DIPHASAC', '6974499190174', 2.00, 0.33, 50.00, 'NIU', NULL, 84, 30, 0, 1, 10.00),
+(256, 'CETIRIZINA 5MG/5ML JBE. X 60ML FARMINDUSTRIA', '7750304003568', 7.00, 3.84, 3.00, 'NIU', NULL, 83, 10, 0, 1, 2.00),
+(257, 'COMPLEJO B X 180ML JBE. PORTUGAL', '7750215439012', 8.50, 5.48, 1.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(258, 'DICLOFENACO 50MG. TAB. PORTUGAL', '7750215027110', 0.25, 0.33, 100.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(259, 'IBUPROFENO 800 MG. TAB. PORTUGAL', '77502215009628', 0.40, 0.23, 100.00, 'NIU', NULL, 91, 10, 0, 1, 15.00),
+(260, 'DICLOFENACO 50MG TAB. GENFAR', '7702605150755', 0.30, 0.13, 30.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(261, 'DICLODOR 50MG. DICLOFENACO TAB. OQPHARMACEUTICAL', '7759765000994', 1.00, 0.15, 100.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(262, 'ACICLOVIR 800MG. TAB. ACFARMA', '7750936012655', 1.50, 0.81, 12.00, 'NIU', NULL, 91, 10, 0, 1, 8.00),
+(263, 'AZITROMICINA 500MG. TAB. PHARMA GENÉRICOS', '7759765003995', 1.50, 0.61, 30.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(264, 'GABAPENTINA 300MG. TAB. PHARMAGENÉRICOS ', '7759765000024', 0.45, 0.20, 100.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(265, 'DOWALLS SUSP. ORAL ', '7750215013342', 9.00, 5.70, 2.00, 'NIU', NULL, 83, 10, 0, 1, 1.00),
+(266, 'VICK VAPORUB UNG. TOPICO X 100GR.', '7590002012475', 24.30, 21.59, 2.00, 'NIU', NULL, 50, 10, 0, 1, 1.00),
+(267, 'VICK VAPORUB UNG. TOPICO X 50GR.', '7590002012468', 15.00, 12.12, 2.00, 'NIU', NULL, 50, 10, 0, 1, 1.00),
+(268, 'MEBENDAZOL 100MG. TAB. PORTUGAL', '7750215000588', 0.20, 0.10, 84.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(269, 'MELOXICAM 15MG. TAB. FARMINDUSTRIA', '7750304005517', 0.25, 0.15, 57.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(270, 'ORFENADRINA 100MG. TAB MOMENTA', '7758112000502', 0.45, 0.35, 48.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(271, 'NAPROXENO 550MG. TAB. PORTUGAL', '77502150284421', 0.50, 0.28, 35.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(272, 'OMEPRAZOL 20MG. CAP. PHARMA GENÉNICOS', '7759765003438', 0.20, 0.12, 5.00, 'NIU', NULL, 92, 10, 0, 1, 10.00),
+(273, 'OMEPRAZOL 20MG. CAP. FARMINDUSTRIA', '775034005708', 0.20, 0.12, 5.00, 'NIU', NULL, 92, 10, 0, 1, 10.00),
+(274, 'RANITIDINA 300MG. TAB. REYOUG PHARMACEUTICAL', '12121212', 0.35, 10.00, 5.00, 'NIU', NULL, 91, 10, 0, 1, 5.00),
+(275, 'PIRIDOXINA 50MG. TAB. AC FARMA', '7750936431746', 0.35, 0.20, 70.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(276, 'PREDNISONA 20MG. TAB. AC FARMA', '7750936003196', 0.25, 0.15, 20.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(277, 'PARACETAMOL 500MG. TAB. M&F', '7712651313417', 0.15, 0.08, 10.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(278, 'SULFAMETOXAZOL + TRIMETROPINA 800/160MG TAB. PORTUGAL', '7750215962473', 0.50, 0.35, 81.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(279, 'TAMSULOSINA 0.4MG CAP. BONAPHARM', '8904242400258', 1.00, 0.60, 14.00, 'NIU', NULL, 92, 10, 0, 1, 10.00),
+(280, 'SIMETICONA 80MG. TAB. IQFARMA', '7750942009373', 0.25, 0.15, 31.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(281, 'VALSARTAN 160MG. TAB ACFARMA', '7750936007477', 1.50, 0.85, 20.00, 'NIU', NULL, 91, 10, 0, 1, 5.00),
+(282, 'VLASARTAN 80MG. TAB. ACFARMA', '7750936007460', 0.95, 0.65, 27.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(283, 'OMISWISS OMEPRAZOL 20NG. CAP THEFAR ', '8904185600128 ', 1.00, 0.50, 5.00, 'NIU', NULL, 92, 10, 0, 1, 5.00),
+(284, 'BISMUTOL TAB. MAST. TEVA', '7750831019919', 2.00, 1.20, 6.00, 'NIU', NULL, 91, 10, 0, 1, 5.00),
+(285, 'HIOSABAL TAB. PARACETAMOL/CUTILBROMURO HIOSINA JOBAL', '7757165000781', 2.00, 0.90, 73.00, 'NIU', NULL, 91, 10, 0, 1, 15.00),
+(286, 'HIGANATUR CAP. SHERFARMA', '7751946004074', 2.00, 1.00, 69.00, 'NIU', NULL, 92, 10, 0, 1, 20.00),
+(287, 'ENZYLUX CAP. LUXOR ', '7755251000387', 2.00, 0.90, 48.00, 'NIU', NULL, 92, 10, 0, 1, 20.00),
+(288, 'DEXALOR TAB. BETAMETASONA/DEXCLORFENAMINA DELFARMA', '7752301000762', 2.50, 1.50, 0.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(289, 'DIGERMIN KIDS SUSP. ORAL ', '8906046200676', 3.50, 2.50, 3.00, 'BOX', NULL, 50, 10, 0, 1, 5.00),
+(290, 'DIGERMIN SUSP. ORAL BONAPHARM', '8906046202755', 2.50, 1.80, 20.00, 'NIU', NULL, 50, 10, 0, 1, 10.00),
+(291, 'FLORATIL POLVO SOBRE X 250MG.  QUIMICA SUIZA', '3583315558079', 3.00, 2.00, 10.00, 'NIU', NULL, 50, 10, 0, 1, 5.00),
+(292, 'biobroncol cap. cefalexina + ambroxol ', '7750942002244', 2.00, 1.00, 1.00, 'NIU', NULL, 92, 10, 0, 1, 10.00),
+(293, 'CLENXOL F. CLENBUTEROL+AMBROXOL TAB. LAB. DEL FARMA', '7752301000335', 2.00, 1.00, 87.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(294, 'GASEOFLAT 125MG. CAP. BLANDA INTIFARMA', '7750288001000', 1.50, 0.80, 15.00, 'NIU', NULL, 92, 10, 0, 1, 10.00),
+(295, 'REPRIMAN 500 TAB. QUILAB', '7751257021555', 1.00, 0.70, 102.00, 'NIU', NULL, 91, 10, 0, 1, 15.00),
+(296, 'TOBAN 2MG. TAB. EUROFARMA', '7758112001486', 1.00, 0.70, 66.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(297, 'BONAFLORA 250MG. CAP. BONAPHARM', '8906046202823', 2.50, 1.80, 9.00, 'NIU', NULL, 92, 10, 0, 1, 5.00),
+(298, 'PIRALGINA METAMIZOL 500MG. TAB. IQFARMA', '7750942009113', 1.00, 0.60, 100.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(299, 'SINONGO 150MG. CAP. LUXOR', '7755251000219', 1.00, 0.80, 14.00, 'NIU', NULL, 92, 10, 0, 1, 10.00),
+(300, 'TUSQUIM NOCHE TAB. INDUQUIMICA', '7757181004046', 1.50, 0.90, 3.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(301, 'LEVOCETIRIZINA 5MG.TAB. DRONNVELS', '7752735000321', 2.00, 0.80, 56.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(302, 'CENAXINN 10MG. TAB. DRONNVELS', '7752735000215', 1.00, 0.50, 198.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(303, 'AMOXICILINA+ACIDO CLAV. TAB. 50MG0/125MG PHARMAGENERICOS', '7759765003384', 1.50, 0.95, 20.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(304, 'NAUSSINE 50MG. TAB. DRONWELS', '7752735000222', 1.50, 0.80, 18.00, 'NIU', NULL, 37, 10, 0, 1, 10.00),
+(305, 'SINONGO 150 MG CAP. LUXOR', '7755251000219', 1.00, 0.80, 12.00, 'NIU', NULL, 92, 10, 0, 1, 1.00),
+(306, 'FYRAX LEVOCETIRIZINA 5MG. TAB. DRONWELS', '7752735000321', 2.00, 1.00, 55.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(307, 'CITRATE PLUS POLVO SACHET X 10GR. DAXO', '0781100159415', 3.50, 2.00, 30.00, 'NIU', NULL, 50, 10, 0, 1, 15.00),
+(308, 'GLUCOPLUS SACHET 10GR. DAXO', '0781100159392', 3.50, 2.00, 30.00, 'NIU', NULL, 50, 10, 0, 1, 15.00),
+(309, 'DOLONEUROPRESS FORTE TAB. PHARMED CORP.', '7753748000162', 1.50, 0.60, 120.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(310, 'DOLOCORDRALAN EXTRA FORTE TAB. ANSOLAT', '77777759050000739', 2.50, 2.00, 1.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(311, 'DAYFLU ACTIVE CAP. BLANDA UNIMED', '1212121111111111', 1.50, 0.80, 4.00, 'NIU', NULL, 92, 10, 0, 1, 10.00),
+(312, 'DR. FLU CAP. BLANDA DROPESAC', '7754102000194', 1.50, 0.80, 74.00, 'NIU', NULL, 93, 10, 0, 1, 30.00),
+(313, 'GRIPAFLUX-C TAB. DRONNVELS', '7752735000024', 1.50, 0.90, 182.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(314, 'DOLO NEUROBION FORTE TAB. PROCTER & GAMBLE', '12145422111', 3.00, 1.50, 200.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(315, 'DEXALOR PLUS TAB. LABORATORIOS DEL FARMA', '2568258252', 2.00, 1.00, 78.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(316, 'NEBILET 5MG. TAB. ', '8012992000434', 1.50, 1.00, 28.00, 'NIU', NULL, 91, 10, 0, 1, 0.00),
+(317, 'AMLODIPINO 5MG. TAB INDUQUIMICA', '775781002417', 0.20, 0.10, 100.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(318, 'PARDIL 500MG. TAB PHARMED CORPORATION', '7753748000087', 3.00, 1.50, 3.00, 'NIU', NULL, 91, 10, 0, 1, 6.00),
+(319, 'DEXALUXOR ', '7755251000233', 1.50, 1.00, 4.00, 'NIU', NULL, 91, 10, 0, 1, 3.00),
+(320, 'ORFENADRINA 100MG. TAB. AC FARMA ', '7750936006227', 0.50, 0.35, 100.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(321, 'BRONCOBUTOL PLUS UNITOMA FARVET', '7750625000062', 1.50, 0.80, 60.00, 'NIU', NULL, 83, 10, 0, 1, 10.00),
+(322, 'BRONCOPHAR PLUS NF UNITOMA FARVET', '7750625000574', 1.50, 1.00, 60.00, 'NIU', NULL, 83, 10, 0, 1, 10.00),
+(323, 'ACIDO ALENDRONICO 70MG. TAB. INDUQUIMICA', '7757181000772', 3.00, 1.00, 4.00, 'NIU', NULL, 91, 10, 0, 1, 1.00),
+(324, 'BUK FRESA SOBRE X 4 UNID', '2112111', 1.00, 0.50, 3.00, 'NIU', NULL, 50, 10, 0, 1, 3.00),
+(325, 'BUK MENTA SOBRE X 4 UNID', '154895626', 1.00, 0.50, 7.00, 'NIU', NULL, 91, 10, 0, 1, 4.00),
+(326, 'BUKCITO C/VIT. C X 15GR', '66456464669', 1.00, 0.50, 15.00, 'NIU', NULL, 50, 10, 0, 1, 10.00),
+(327, 'ELECTROLIGHT FRESA X 475 ML', '7759307015264', 2.50, 1.80, 8.00, 'NIU', NULL, 9, 10, 0, 1, 5.00),
+(328, 'SUEROX 430ML. FRUTOS ROJOS-TROPICALES', '258258258', 6.80, 5.00, 6.00, 'NIU', NULL, 50, 10, 0, 1, 4.00),
+(329, 'ELECTRORAL NF FRESA  1000ML. MEDIFARMA', '7759307207966', 16.00, 13.00, 6.00, 'NIU', NULL, 50, 10, 0, 1, 4.00),
+(330, 'CELAXIB 200 MG. CAP. DRONNVELS ', '7752735000208', 1.50, 1.00, 40.00, 'NIU', NULL, 92, 10, 0, 1, 20.00),
+(331, 'MAXFLAM MELOXICAM 15MG. TAB DOLAPHARM', '7754690010285', 1.50, 1.00, 100.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(332, 'TEROCOX - 120 ETORICOXIB 120MG. TAB FALAB PERU', '9449635186116', 5.00, 3.00, 50.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(333, 'PLIDOCHECK PLUS - IBUPROFENO 400MG. BONAPHARM', '8904324905237', 1.50, 0.90, 40.00, 'NIU', NULL, 92, 10, 0, 1, 20.00),
+(334, 'TAPSIN - PARACETAMOL 1GR. POLVO EFERV. LIMON X 3.7 GR', '7800004005611', 2.00, 1.00, 20.00, 'NIU', NULL, 50, 10, 0, 1, 10.00),
+(335, 'ACICLAV 500MG/125MG. TAB. OQPHARMACEUTICAL', '7759765002561', 2.50, 1.80, 15.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(336, 'MAXIS KETOROLACO 10MG. TAB. GABBLAN', '7753943000905', 2.00, 1.50, 25.00, 'NIU', NULL, 91, 10, 0, 1, 15.00),
+(337, 'CIPRAX CIPROFLOXACINO 500MG. TAB. DRONWELS', '7752735000116', 1.50, 1.00, 30.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(338, 'DEXTALYS DEXAMETASONA 4MG. TAB. DRONNVELS ', '7752735000338', 2.00, 1.00, 150.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(339, 'DEXACORTEN DEXAMETASONA 4MG. TAB. DOLAPHARM', '7754690010223', 2.00, 1.00, 100.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(340, 'DOLOMARKET PLUS TAB. BMC FARMA', '7758996000704', 1.50, 1.00, 100.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(341, 'MELVOXIM MELOXICAM 15 MG. TAB. DRONNVELS', '77527000291', 2.00, 1.00, 100.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(342, 'CEFUROXIMA 500 MG. TAB. OTARVASQ', '775370900651', 5.50, 3.00, 10.00, 'NIU', NULL, 91, 10, 0, 1, 5.00),
+(343, 'MAFIDOL 1GR. PARACETAMOL FARVET', '775062500420', 1.50, 0.90, 100.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(344, 'MIODEL RELAX TAB. LABORATORIOS DELFARMA SAC', '7752301000717', 2.00, 1.00, 120.00, 'NIU', NULL, 91, 10, 0, 1, 30.00),
+(345, 'DICLODOR 50 MG. OQPHARMACEUTICAL', '7759765000994', 1.50, 0.50, 100.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(346, 'LUXODOL RELAX TAB. DRONNVELS', '7752735000260', 2.00, 1.00, 200.00, 'NIU', NULL, 91, 10, 0, 1, 50.00),
+(347, 'TRIMAX AZITROMICINA 500MG. TAB GABBLAN', '7753943000462', 2.00, 1.00, 15.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(348, 'NAYFLEX MUJER TAB. DIPHASAC', '8904172928242', 1.50, 1.00, 100.00, 'NIU', NULL, 93, 10, 0, 2, 30.00),
+(349, 'LEVRAXX LEVOFLOXACINO 750MG. BMC FARMA', '775899600384', 7.00, 2.00, 5.00, 'NIU', NULL, 91, 10, 0, 1, 3.00),
+(350, 'HISTIGLOB 24MG', '7757735000029', 3.00, 1.50, 40.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(351, 'CLINDA C CLINDAMICINA 300MG. LABORATORIOS DELFARMA', '7752301000243', 2.00, 1.30, 100.00, 'NIU', NULL, 92, 10, 0, 1, 30.00),
+(352, 'BACTAMOX 500MG. CAP. OQPHARMACEUTICAL', '7759765002431', 1.20, 1.00, 100.00, 'NIU', NULL, 92, 10, 0, 1, 20.00),
+(353, 'MIGRADEL TAB  X 2 UNID. LAB. DELFARMA ', '7752301000458', 2.50, 1.50, 100.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(354, 'NAYFLEX MUJER 200MG. DIPHASAC', '8904172928242', 1.50, 1.00, 100.00, 'NIU', NULL, 93, 10, 0, 1, 10.00),
+(355, 'HISTIGLOB 24MG. BETAHISTINA TAB. QM PHARMA', '7757735000029', 3.00, 2.00, 20.00, 'NIU', NULL, 93, 10, 0, 1, 5.00),
+(356, 'HELFIN MIGRAÑA TAB. DRONNWELS', '7752735000031', 1.50, 0.80, 100.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(357, 'BRIMODIN 600MG. ACETILCISTEINA TAB. EFERV. IQFARMA', '7750942002145', 2.80, 2.00, 20.00, 'NIU', NULL, 90, 10, 0, 1, 5.00),
+(358, 'LASIX 40MG FUROSEMIDA TAB. SANOFI', '7891058009038', 2.00, 1.00, 40.00, 'NIU', NULL, 91, 10, 0, 1, 2.00),
+(359, 'PARACETAMOL 500MG+CAFEINA 65MG. TAB. GENFAR', '7705959882754', 0.75, 0.50, 48.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(360, 'DEXTALYS 4MG. DEXAMETASONA DRONNVELS', '7752735000338', 2.00, 1.00, 100.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(361, 'NISACORTEC 50MG PREDNISONA TAB. GABBLAN', '7753943000479', 2.00, 1.00, 50.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(362, 'NISACORTEC 20MG. TAB. PREDNISONA GABBLAN ', '7753943000363', 1.50, 1.00, 200.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(363, 'THYROFIX 100MCG TAB. LEVOTIROXINA MS PHARMA', '7755774000130', 1.00, 0.50, 50.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(364, 'ENTRESTO 24MG/25MG SACUBITRILO/VALSARTAN NOVARTIS ', '7612797403280', 1.50, 0.00, 60.00, 'NIU', NULL, 91, 10, 0, 1, 0.00),
+(365, 'NITOXADIN 500MG. TAB.  NITAZOXANIDA  PORTUGAL', '7750215020432', 3.00, 1.80, 6.00, 'NIU', NULL, 91, 10, 0, 1, 3.00),
+(366, 'NITOZAX 500MG. TAB. NITAZOXANIDA ', '7759405000124', 3.00, 1.50, 18.00, 'NIU', NULL, 91, 10, 0, 1, 6.00),
+(367, 'DOWALLS HIDROXIDO DE MAGNESIO SUSP. ORAL 150ML ', '7750215013342', 9.00, 6.00, 2.00, 'NIU', NULL, 50, 10, 0, 1, 1.00),
+(368, 'BISACODILO 5MG. TAB. ACFARMA', '7750936007033', 1.00, 0.50, 100.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(369, 'CIRUELAX FORTE TAB. GARDEN HOUSE', '7803510002549', 1.50, 1.00, 50.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(370, 'TILFORMIN 850 850MG. METFORMINA ', '8906061482088', 0.25, 0.15, 100.00, 'NIU', NULL, 91, 10, 0, 1, 20.00),
+(371, 'FARMACUOL SOL. RECTAL X 250ML. FARMASUR', '7755177000164', 28.00, 18.00, 1.00, 'NIU', NULL, 50, 10, 0, 1, 1.00),
+(372, 'SAL DE ANDREWS VERDE SOB. X 5GR. MEDIFARMA', '7759307174077', 1.00, 0.80, 100.00, 'NIU', NULL, 50, 10, 0, 1, 10.00),
+(373, 'CASSINELLI AGUA SIN GAS 625ML. ', '7750031000649', 1.00, 0.80, 24.00, 'NIU', NULL, 50, 10, 0, 1, 10.00),
+(374, 'GRIPACHEK CAP. BLANDAS', '8904324900614', 1.50, 1.00, 100.00, 'NIU', NULL, 93, 10, 0, 1, 10.00),
+(375, 'HEPAFEN CAP. DOLAPHARM', '7754690010261', 2.00, 1.00, 50.00, 'NIU', NULL, 92, 10, 0, 1, 10.00),
+(376, 'CLORZOPHARM TAB. REC. DOLAPHARM', '7754690010247', 2.00, 1.00, 100.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(377, 'XENODOL 550MG. NAPROXENO DOLAPHARM', '7754690010148', 1.50, 0.80, 50.00, 'NIU', NULL, 91, 10, 0, 1, 10.00),
+(378, 'SANDA FOLEY DE LATEX N° 14F (ADULTO) TQ. MEDIC ', '7755969000693', 6.50, 4.00, 10.00, 'NIU', NULL, 50, 10, 0, 1, 2.00);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `serie`
+--
+
+CREATE TABLE `serie` (
+  `idserie` int(11) NOT NULL,
+  `idtipocomprobante` char(2) DEFAULT NULL,
+  `serie` varchar(6) DEFAULT NULL,
+  `correlativo` int(11) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `serie`
+--
+
+INSERT INTO `serie` (`idserie`, `idtipocomprobante`, `serie`, `correlativo`, `estado`) VALUES
+(1, '03', 'B001', 262, 1),
+(2, '03', 'B002', 90, 1),
+(3, '01', 'F001', 51, 1),
+(4, '01', 'F002', 46, 1),
+(5, '00', '001', 18, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipocomprobante`
+--
+
+CREATE TABLE `tipocomprobante` (
+  `idtipocomprobante` char(2) NOT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `tipocomprobante`
+--
+
+INSERT INTO `tipocomprobante` (`idtipocomprobante`, `nombre`, `estado`) VALUES
+('00', 'NOTA DE VENTA', 1),
+('01', 'FACTURA', 1),
+('03', 'BOLETA', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipodocumento`
+--
+
+CREATE TABLE `tipodocumento` (
+  `idtipodocumento` char(1) NOT NULL,
+  `nombre` varchar(45) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `tipodocumento`
+--
+
+INSERT INTO `tipodocumento` (`idtipodocumento`, `nombre`, `estado`) VALUES
+('0', 'SIN DOCUMENTO', 1),
+('1', 'DNI', 1),
+('4', 'CARNET DE EXTRANJERIA', 1),
+('6', 'RUC', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `unidad`
+--
+
+CREATE TABLE `unidad` (
+  `idunidad` char(3) NOT NULL,
+  `descripcion` varchar(100) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `unidad`
+--
+
+INSERT INTO `unidad` (`idunidad`, `descripcion`, `estado`) VALUES
+('BOX', 'CAJA', 1),
+('KGM', 'KILOGRAMO', 1),
+('LT', 'LITRO', 1),
+('NIU', 'UNIDAD', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario`
+--
+
+CREATE TABLE `usuario` (
+  `idusuario` int(11) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `usuario` varchar(50) DEFAULT NULL,
+  `clave` text DEFAULT NULL,
+  `idperfil` int(11) NOT NULL,
+  `estado` smallint(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`idusuario`, `nombre`, `usuario`, `clave`, `idperfil`, `estado`) VALUES
+(1, 'Luis Antonio', 'admin', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, 1),
+(2, 'Diana Malca', 'diana', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, 1),
+(3, 'Pedro Perez', 'pedrito', '7c4a8d09ca3762af61e59520943dc26494f8941b', 4, 2),
+(4, 'JOSE LUIS', 'luis', '7c4a8d09ca3762af61e59520943dc26494f8941b', 2, 2),
+(5, 'LUIS CARLOS', 'carlos', '7c4a8d09ca3762af61e59520943dc26494f8941b', 9, 2),
+(6, 'TRABAJADOR1', 'trabajador1', '7c4a8d09ca3762af61e59520943dc26494f8941b', 11, 2),
+(7, 'Antonio', 'antonio', '123456', 1, 2),
+(10, 'Cecilia', 'cecilia', '7c4a8d09ca3762af61e59520943dc26494f8941b', 3, 1),
+(11, 'Omar', 'omar', '7110eda4d09e062aa5e4a390b0a572ac0d2c0220', 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `venta`
+--
+
+CREATE TABLE `venta` (
+  `idventa` int(11) NOT NULL,
+  `fecha` date DEFAULT NULL,
+  `idcliente` int(11) DEFAULT NULL,
+  `idtipocomprobante` char(2) DEFAULT NULL,
+  `serie` varchar(6) DEFAULT NULL,
+  `correlativo` int(11) DEFAULT NULL,
+  `total` decimal(15,2) DEFAULT NULL,
+  `total_gravado` decimal(15,2) DEFAULT NULL,
+  `total_exonerado` decimal(15,2) DEFAULT NULL,
+  `total_inafecto` decimal(15,2) DEFAULT NULL,
+  `total_igv` decimal(15,2) DEFAULT NULL,
+  `total_icbper` decimal(15,2) DEFAULT NULL,
+  `total_descuento` decimal(15,2) DEFAULT NULL,
+  `formapago` char(1) DEFAULT NULL,
+  `idmoneda` char(3) DEFAULT NULL,
+  `vencimiento` date DEFAULT NULL,
+  `guiaremision` varchar(20) DEFAULT NULL,
+  `ordencompra` varchar(20) DEFAULT NULL,
+  `idusuario` int(11) DEFAULT NULL,
+  `estado` smallint(6) DEFAULT NULL,
+  `xml` text NOT NULL,
+  `cdr` text NOT NULL,
+  `estadoSunat` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci ROW_FORMAT=DYNAMIC;
+
+--
+-- Volcado de datos para la tabla `venta`
+--
+
+INSERT INTO `venta` (`idventa`, `fecha`, `idcliente`, `idtipocomprobante`, `serie`, `correlativo`, `total`, `total_gravado`, `total_exonerado`, `total_inafecto`, `total_igv`, `total_icbper`, `total_descuento`, `formapago`, `idmoneda`, `vencimiento`, `guiaremision`, `ordencompra`, `idusuario`, `estado`, `xml`, `cdr`, `estadoSunat`) VALUES
+(178, '2025-09-08', 31, '03', 'B001', 258, 1.50, 1.27, 0.00, 0.00, 0.23, 0.00, 0.00, 'C', 'PEN', NULL, '', '', 1, 1, 'xml/20123456789-03-B001-258.xml', 'cdr/R-20123456789-03-B001-258.zip', 'ACEPTADO'),
+(179, '2025-09-08', 32, '01', 'F001', 48, 2.00, 1.69, 0.00, 0.00, 0.31, 0.00, 0.00, 'C', 'PEN', NULL, '', '', 1, 1, 'xml/20123456789-01-F001-48.xml', 'cdr/R-20123456789-01-F001-48.zip', 'ACEPTADO'),
+(180, '2025-09-08', 31, '03', 'B001', 259, 4.00, 3.39, 0.00, 0.00, 0.61, 0.00, 0.00, 'C', 'PEN', NULL, '', '', 1, 1, 'xml/20123456789-03-B001-259.xml', 'cdr/R-20123456789-03-B001-259.zip', 'ACEPTADO'),
+(181, '2025-09-10', 31, '03', 'B001', 260, 4.50, 3.81, 0.00, 0.00, 0.69, 0.00, 0.00, 'C', 'PEN', NULL, '', '', 1, 1, 'xml/20123456789-03-B001-260.xml', 'cdr/R-20123456789-03-B001-260.zip', 'ACEPTADO'),
+(182, '2025-09-10', 32, '01', 'F001', 49, 5.70, 4.83, 0.00, 0.00, 0.87, 0.00, 0.00, 'C', 'PEN', NULL, '', '', 1, 1, 'xml/20123456789-01-F001-49.xml', 'cdr/R-20123456789-01-F001-49.zip', 'ACEPTADO'),
+(183, '2025-09-10', 31, '03', 'B001', 261, 2.00, 1.69, 0.00, 0.00, 0.31, 0.00, 0.00, 'C', 'PEN', NULL, '', '', 1, 1, 'xml/20123456789-03-B001-261.xml', 'cdr/R-20123456789-03-B001-261.zip', 'ACEPTADO'),
+(184, '2025-09-10', 32, '01', 'F001', 50, 2.50, 2.12, 0.00, 0.00, 0.38, 0.00, 0.00, 'C', 'PEN', NULL, '', '', 1, 1, 'xml/20123456789-01-F001-50.xml', 'cdr/R-20123456789-01-F001-50.zip', 'ACEPTADO'),
+(185, '2025-09-10', 31, '03', 'B001', 262, 2.50, 2.12, 0.00, 0.00, 0.38, 0.00, 0.00, 'C', 'PEN', NULL, '', '', 1, 1, 'xml/20123456789-03-B001-262.xml', 'cdr/R-20123456789-03-B001-262.zip', 'ACEPTADO'),
+(186, '2025-09-10', 32, '01', 'F001', 51, 4.00, 3.39, 0.00, 0.00, 0.61, 0.00, 0.00, 'C', 'PEN', NULL, '', '', 1, 1, 'xml/20123456789-01-F001-51.xml', 'cdr/R-20123456789-01-F001-51.zip', 'ACEPTADO');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `acceso`
+--
+ALTER TABLE `acceso`
+  ADD PRIMARY KEY (`idperfil`,`idopcion`) USING BTREE,
+  ADD KEY `fk_aceso_opcion` (`idopcion`) USING BTREE;
+
+--
+-- Indices de la tabla `afectacion`
+--
+ALTER TABLE `afectacion`
+  ADD PRIMARY KEY (`idafectacion`) USING BTREE;
+
+--
+-- Indices de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  ADD PRIMARY KEY (`idcategoria`) USING BTREE;
+
+--
+-- Indices de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`idcliente`) USING BTREE,
+  ADD KEY `fk_cliente_tipodocumento` (`idtipodocumento`) USING BTREE;
+
+--
+-- Indices de la tabla `detalle`
+--
+ALTER TABLE `detalle`
+  ADD PRIMARY KEY (`iddetalle`) USING BTREE,
+  ADD KEY `fk_detalle_venta` (`idventa`) USING BTREE,
+  ADD KEY `fk_detalle_producto` (`idproducto`) USING BTREE,
+  ADD KEY `fk_detalle_afectacion` (`idafectacion`) USING BTREE;
+
+--
+-- Indices de la tabla `moneda`
+--
+ALTER TABLE `moneda`
+  ADD PRIMARY KEY (`idmoneda`) USING BTREE;
+
+--
+-- Indices de la tabla `opcion`
+--
+ALTER TABLE `opcion`
+  ADD PRIMARY KEY (`idopcion`) USING BTREE;
+
+--
+-- Indices de la tabla `perfil`
+--
+ALTER TABLE `perfil`
+  ADD PRIMARY KEY (`idperfil`) USING BTREE;
+
+--
+-- Indices de la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD PRIMARY KEY (`idproducto`) USING BTREE,
+  ADD KEY `fk_producto_categoria` (`idcategoria`) USING BTREE;
+
+--
+-- Indices de la tabla `serie`
+--
+ALTER TABLE `serie`
+  ADD PRIMARY KEY (`idserie`) USING BTREE;
+
+--
+-- Indices de la tabla `tipocomprobante`
+--
+ALTER TABLE `tipocomprobante`
+  ADD PRIMARY KEY (`idtipocomprobante`) USING BTREE;
+
+--
+-- Indices de la tabla `tipodocumento`
+--
+ALTER TABLE `tipodocumento`
+  ADD PRIMARY KEY (`idtipodocumento`) USING BTREE;
+
+--
+-- Indices de la tabla `unidad`
+--
+ALTER TABLE `unidad`
+  ADD PRIMARY KEY (`idunidad`) USING BTREE;
+
+--
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`idusuario`) USING BTREE,
+  ADD KEY `fk_usuario_perfil` (`idperfil`) USING BTREE;
+
+--
+-- Indices de la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD PRIMARY KEY (`idventa`) USING BTREE,
+  ADD KEY `fk_cliente_venta` (`idcliente`) USING BTREE,
+  ADD KEY `fk_moneda_venta` (`idmoneda`) USING BTREE,
+  ADD KEY `fk_tipocomprobante_venta` (`idtipocomprobante`) USING BTREE,
+  ADD KEY `fk_usuario_venta` (`idusuario`) USING BTREE;
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `categoria`
+--
+ALTER TABLE `categoria`
+  MODIFY `idcategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+
+--
+-- AUTO_INCREMENT de la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT de la tabla `detalle`
+--
+ALTER TABLE `detalle`
+  MODIFY `iddetalle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=347;
+
+--
+-- AUTO_INCREMENT de la tabla `opcion`
+--
+ALTER TABLE `opcion`
+  MODIFY `idopcion` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de la tabla `perfil`
+--
+ALTER TABLE `perfil`
+  MODIFY `idperfil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `producto`
+--
+ALTER TABLE `producto`
+  MODIFY `idproducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=379;
+
+--
+-- AUTO_INCREMENT de la tabla `serie`
+--
+ALTER TABLE `serie`
+  MODIFY `idserie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `idusuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `venta`
+--
+ALTER TABLE `venta`
+  MODIFY `idventa` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=187;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `acceso`
+--
+ALTER TABLE `acceso`
+  ADD CONSTRAINT `fk_aceso_opcion` FOREIGN KEY (`idopcion`) REFERENCES `opcion` (`idopcion`),
+  ADD CONSTRAINT `fk_aceso_perfil` FOREIGN KEY (`idperfil`) REFERENCES `perfil` (`idperfil`);
+
+--
+-- Filtros para la tabla `cliente`
+--
+ALTER TABLE `cliente`
+  ADD CONSTRAINT `fk_cliente_tipodocumento` FOREIGN KEY (`idtipodocumento`) REFERENCES `tipodocumento` (`idtipodocumento`);
+
+--
+-- Filtros para la tabla `detalle`
+--
+ALTER TABLE `detalle`
+  ADD CONSTRAINT `fk_detalle_afectacion` FOREIGN KEY (`idafectacion`) REFERENCES `afectacion` (`idafectacion`),
+  ADD CONSTRAINT `fk_detalle_producto` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`idproducto`),
+  ADD CONSTRAINT `fk_detalle_venta` FOREIGN KEY (`idventa`) REFERENCES `venta` (`idventa`);
+
+--
+-- Filtros para la tabla `producto`
+--
+ALTER TABLE `producto`
+  ADD CONSTRAINT `fk_producto_categoria` FOREIGN KEY (`idcategoria`) REFERENCES `categoria` (`idcategoria`);
+
+--
+-- Filtros para la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `fk_usuario_perfil` FOREIGN KEY (`idperfil`) REFERENCES `perfil` (`idperfil`);
+
+--
+-- Filtros para la tabla `venta`
+--
+ALTER TABLE `venta`
+  ADD CONSTRAINT `fk_cliente_venta` FOREIGN KEY (`idcliente`) REFERENCES `cliente` (`idcliente`),
+  ADD CONSTRAINT `fk_moneda_venta` FOREIGN KEY (`idmoneda`) REFERENCES `moneda` (`idmoneda`),
+  ADD CONSTRAINT `fk_tipocomprobante_venta` FOREIGN KEY (`idtipocomprobante`) REFERENCES `tipocomprobante` (`idtipocomprobante`),
+  ADD CONSTRAINT `fk_usuario_venta` FOREIGN KEY (`idusuario`) REFERENCES `usuario` (`idusuario`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
