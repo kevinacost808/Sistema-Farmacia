@@ -166,7 +166,7 @@ function controlador($accion)
                             $objPro->actualizarStock($v["idproducto"], $v["cantidad"] * -1);
                         }
 
-                        if($venta["idtipocomprobante"]!= 0){
+                        if ($venta["idtipocomprobante"] != 0) {
 
                             // ===================== FACTURACIÓN ELECTRÓNICA =======================
                             require __DIR__ . '/../vendor/autoload.php';
@@ -246,17 +246,17 @@ function controlador($accion)
                             file_put_contents(__DIR__ . '/../xml/' . $invoice->getName() . '.xml', $see->getFactory()->getLastXml());
 
                             $xml = 'xml/' . $invoice->getName() . '.xml';
-                            
+
                             if (!$result->isSuccess()) {
                                 $sunatRespuesta = [
                                     "estado" => "ERROR",
                                     "descripcion" => $result->getError()->getMessage()
                                 ];
                                 $estadoSunat = 'ERROR';
-                                $objVen -> actualizarSunat($xml, NULL, $estadoSunat, $idventa);
+                                $objVen->actualizarSunat($xml, NULL, $estadoSunat, $idventa);
                                 break;
                             }
-                            
+
                             file_put_contents(__DIR__ . '/../cdr/R-' . $invoice->getName() . '.zip', $result->getCdrZip());
                             $cdr = 'cdr/R-' . $invoice->getName() . '.zip';
 
@@ -266,34 +266,33 @@ function controlador($accion)
                             if ($code === 0) {
                                 $sunatRespuesta = [
                                     "estado" => "ACEPTADO",
-                                    "descripcion" => $cdrEnvio->getDescription().PHP_EOL
+                                    "descripcion" => $cdrEnvio->getDescription() . PHP_EOL
                                 ];
                                 $estadoSunat = 'ACEPTADO';
-                                
+
                                 if (count($cdrEnvio->getNotes()) > 0) {
                                     $sunatRespuesta = [
                                         "estado" => "CON OBSERVACIONES",
                                         "descripcion" => 'CORREGIR: ' . $cdrEnvio->getNotes()
                                     ];
                                     $estadoSunat = 'OBSERVACION';
-                                }  
+                                }
                             } else if ($code >= 2000 && $code <= 3999) {
                                 $sunatRespuesta = [
                                     "estado" => "RECHAZADA",
-                                    "descripcion" => $cdrEnvio->getDescription().PHP_EOL
+                                    "descripcion" => $cdrEnvio->getDescription() . PHP_EOL
                                 ];
                             } else {
                                 /* es un CDR inválido que debería tratarse como un error-excepción. */
                                 /*code: 0100 a 1999 */
                                 $sunatRespuesta = [
                                     "estado" => "EXCEPCION",
-                                    "descripcion" => $cdrEnvio->getDescription().PHP_EOL
+                                    "descripcion" => $cdrEnvio->getDescription() . PHP_EOL
                                 ];
                                 $estadoSunat = 'EXCEPCION';
                             }
 
-                            $objVen -> actualizarSunat($xml, $cdr, $estadoSunat, $idventa);
-
+                            $objVen->actualizarSunat($xml, $cdr, $estadoSunat, $idventa);
                         }
                     }
                     $codigoError =  1;
@@ -316,7 +315,7 @@ function controlador($accion)
             );
             echo json_encode($array_retorno);
 
-        break;
+            break;
 
         case "ACTUALIZAR":
             try {
@@ -457,106 +456,131 @@ function controlador($accion)
                         $objPro->actualizarStock($v["idproducto"], $v["cantidad"] * -1);
                     }
                     // ===================== FACTURACIÓN ELECTRÓNICA =======================
-                            require __DIR__ . '/../vendor/autoload.php';
-                            $see = require __DIR__ . '/../sunat/config.php';
+                    require __DIR__ . '/../vendor/autoload.php';
+                    $see = require __DIR__ . '/../sunat/config.php';
 
-                            // Cliente
-                            $clienteBD = $objClie->consultarClientePorId($venta["idcliente"])->fetch(PDO::FETCH_ASSOC);
-                            $client = (new Client())
-                                ->setTipoDoc($clienteBD['idtipodocumento'])
-                                ->setNumDoc($clienteBD['nrodocumento'])
-                                ->setRznSocial($clienteBD['nombre']);
+                    // Cliente
+                    $clienteBD = $objClie->consultarClientePorId($venta["idcliente"])->fetch(PDO::FETCH_ASSOC);
+                    $client = (new Client())
+                        ->setTipoDoc($clienteBD['idtipodocumento'])
+                        ->setNumDoc($clienteBD['nrodocumento'])
+                        ->setRznSocial($clienteBD['nombre']);
 
-                            // Empresa emisora (ajusta a tus datos)
-                            $address = (new Address())
-                                ->setUbigueo("150101")
-                                ->setDepartamento("LIMA")
-                                ->setProvincia("LIMA")
-                                ->setDistrito("LIMA")
-                                ->setUrbanizacion("-")
-                                ->setDireccion("Av. Villa Nueva 221")
-                                ->setCodLocal("0000");
+                    // Empresa emisora (ajusta a tus datos)
+                    $address = (new Address())
+                        ->setUbigueo("150101")
+                        ->setDepartamento("LIMA")
+                        ->setProvincia("LIMA")
+                        ->setDistrito("LIMA")
+                        ->setUrbanizacion("-")
+                        ->setDireccion("Av. Villa Nueva 221")
+                        ->setCodLocal("0000");
 
-                            $company = (new Company())
-                                ->setRuc("20123456789")
-                                ->setRazonSocial("MI EMPRESA SAC")
-                                ->setNombreComercial("MI EMPRESA")
-                                ->setAddress($address);
+                    $company = (new Company())
+                        ->setRuc("20123456789")
+                        ->setRazonSocial("MI EMPRESA SAC")
+                        ->setNombreComercial("MI EMPRESA")
+                        ->setAddress($address);
 
-                            // Documento
-                            $invoice = (new Invoice())
-                                ->setUblVersion('2.1')
-                                ->setTipoOperacion("0101")
-                                ->setTipoDoc($venta["idtipocomprobante"] == "1" ? "01" : "03") // 01=Factura, 03=Boleta
-                                ->setSerie($venta["serie"])
-                                ->setCorrelativo($venta["correlativo"])
-                                ->setFechaEmision(new DateTime($venta["fecha"], new DateTimeZone('America/Lima')))
-                                ->setFormaPago(new FormaPagoContado())
-                                ->setTipoMoneda("PEN")
-                                ->setCompany($company)
-                                ->setClient($client)
-                                ->setMtoOperGravadas($venta["total_gravado"])
-                                ->setMtoIGV($venta["total_igv"])
-                                ->setTotalImpuestos($venta["total_igv"])
-                                ->setValorVenta($venta["total_gravado"])
-                                ->setSubTotal($venta["total"])
-                                ->setMtoImpVenta($venta["total"]);
+                    // Documento
+                    $invoice = (new Invoice())
+                        ->setUblVersion('2.1')
+                        ->setTipoOperacion("0101")
+                        ->setTipoDoc($venta["idtipocomprobante"] == "1" ? "01" : "03") // 01=Factura, 03=Boleta
+                        ->setSerie($venta["serie"])
+                        ->setCorrelativo($venta["correlativo"])
+                        ->setFechaEmision(new DateTime($venta["fecha"], new DateTimeZone('America/Lima')))
+                        ->setFormaPago(new FormaPagoContado())
+                        ->setTipoMoneda("PEN")
+                        ->setCompany($company)
+                        ->setClient($client)
+                        ->setMtoOperGravadas($venta["total_gravado"])
+                        ->setMtoIGV($venta["total_igv"])
+                        ->setTotalImpuestos($venta["total_igv"])
+                        ->setValorVenta($venta["total_gravado"])
+                        ->setSubTotal($venta["total"])
+                        ->setMtoImpVenta($venta["total"]);
 
-                            // Detalles
-                            $items = [];
-                            foreach ($detalle_venta as $d) {
-                                $items[] = (new SaleDetail())
-                                    ->setCodProducto($d['idproducto'])
-                                    ->setUnidad($d['unidad'])
-                                    ->setCantidad($d['cantidad'])
-                                    ->setMtoValorUnitario($d['pventa'])
-                                    ->setDescripcion("Producto " . $d['idproducto'])
-                                    ->setMtoBaseIgv($d['total'])
-                                    ->setPorcentajeIgv(18.00)
-                                    ->setIgv($d['igv'])
-                                    ->setTipAfeIgv($d['idafectacion'])
-                                    ->setTotalImpuestos($d['igv'])
-                                    ->setMtoValorVenta($d['total'])
-                                    ->setMtoPrecioUnitario($d['pventa']);
-                            }
-                            $invoice->setDetails($items);
+                    // Detalles
+                    $items = [];
+                    foreach ($detalle_venta as $d) {
+                        $items[] = (new SaleDetail())
+                            ->setCodProducto($d['idproducto'])
+                            ->setUnidad($d['unidad'])
+                            ->setCantidad($d['cantidad'])
+                            ->setMtoValorUnitario($d['pventa'])
+                            ->setDescripcion("Producto " . $d['idproducto'])
+                            ->setMtoBaseIgv($d['total'])
+                            ->setPorcentajeIgv(18.00)
+                            ->setIgv($d['igv'])
+                            ->setTipAfeIgv($d['idafectacion'])
+                            ->setTotalImpuestos($d['igv'])
+                            ->setMtoValorVenta($d['total'])
+                            ->setMtoPrecioUnitario($d['pventa']);
+                    }
+                    $invoice->setDetails($items);
 
-                            // Leyenda
-                            $legend = (new Legend())
-                                ->setCode('1000')
-                                ->setValue("SON " . $venta["total"] . " SOLES");
-                            $invoice->setLegends([$legend]);
+                    // Leyenda
+                    $legend = (new Legend())
+                        ->setCode('1000')
+                        ->setValue("SON " . $venta["total"] . " SOLES");
+                    $invoice->setLegends([$legend]);
 
-                            // Enviar a SUNAT
-                            $result = $see->send($invoice);
+                    // Enviar a SUNAT
+                    $result = $see->send($invoice);
 
-                            // Guardar XML/CDR
-                            file_put_contents(__DIR__ . '/../xml/' . $invoice->getName() . '.xml', $see->getFactory()->getLastXml());
+                    // Guardar XML/CDR
+                    file_put_contents(__DIR__ . '/../xml/' . $invoice->getName() . '.xml', $see->getFactory()->getLastXml());
 
-                            $xml = 'xml/' . $invoice->getName() . '.xml';
-                            
-                            if (!$result->isSuccess()) {
-                               
-                                $sunatRespuesta = [
-                                    "estado" => "ACEPTADO",
-                                    "descripcion" => $result->getCdrResponse()->getDescription()
-                                ];
-                                $estadoSunat = 'ACEPTADO';
-                                $objVen -> actualizarSunat($xml, $cdr, $estadoSunat, $_POST['idventa']);
-                            } else {
-                                $sunatRespuesta = [
-                                    "estado" => "ERROR",
-                                    "codigo" => $result->getError()->getCode(),
-                                    "mensaje" => $result->getError()->getMessage()
-                                ];
-                                $estadoSunat = 'RECHAZADO';
-                                $objVen -> actualizarSunat(NULL, NULL, $estadoSunat, $_POST['idventa']);
-                            }
+                    $xml = 'xml/' . $invoice->getName() . '.xml';
 
-                            file_put_contents(__DIR__ . '/../cdr/R-' . $invoice->getName() . '.zip', $result->getCdrZip());
+                    if (!$result->isSuccess()) {
+                        $sunatRespuesta = [
+                            "estado" => "ERROR",
+                            "descripcion" => $result->getError()->getMessage()
+                        ];
+                        $estadoSunat = 'ERROR';
+                        $objVen->actualizarSunat($xml, NULL, $estadoSunat, $idventa);
+                        break;
+                    }
 
-                            $cdr = 'cdr/R-' . $invoice->getName() . '.zip';
-                            // =====================================================================
+                    file_put_contents(__DIR__ . '/../cdr/R-' . $invoice->getName() . '.zip', $result->getCdrZip());
+                    $cdr = 'cdr/R-' . $invoice->getName() . '.zip';
+
+                    $cdrEnvio = $result->getCdrResponse();
+                    $code = (int)$cdrEnvio->getCode();
+
+                    if ($code === 0) {
+                        $sunatRespuesta = [
+                            "estado" => "ACEPTADO",
+                            "descripcion" => $cdrEnvio->getDescription() . PHP_EOL
+                        ];
+                        $estadoSunat = 'ACEPTADO';
+
+                        if (count($cdrEnvio->getNotes()) > 0) {
+                            $sunatRespuesta = [
+                                "estado" => "CON OBSERVACIONES",
+                                "descripcion" => 'CORREGIR: ' . $cdrEnvio->getNotes()
+                            ];
+                            $estadoSunat = 'OBSERVACION';
+                        }
+                    } else if ($code >= 2000 && $code <= 3999) {
+                        $sunatRespuesta = [
+                            "estado" => "RECHAZADA",
+                            "descripcion" => $cdrEnvio->getDescription() . PHP_EOL
+                        ];
+                    } else {
+                        /* es un CDR inválido que debería tratarse como un error-excepción. */
+                        /*code: 0100 a 1999 */
+                        $sunatRespuesta = [
+                            "estado" => "EXCEPCION",
+                            "descripcion" => $cdrEnvio->getDescription() . PHP_EOL
+                        ];
+                        $estadoSunat = 'EXCEPCION';
+                    }
+
+                    $objVen->actualizarSunat($xml, $cdr, $estadoSunat, $idventa);
+                    // =====================================================================
                     //fin actualizacion de stock actual                    
                     $codigoError =  1;
                 } else if (count($problemasStock) > 0) {
