@@ -247,27 +247,52 @@ function controlador($accion)
 
                             $xml = 'xml/' . $invoice->getName() . '.xml';
                             
-                            if ($result->isSuccess()) {
-                                file_put_contents(__DIR__ . '/../cdr/R-' . $invoice->getName() . '.zip', $result->getCdrZip());
-
-                                $cdr = 'cdr/R-' . $invoice->getName() . '.zip';
-                                $sunatRespuesta = [
-                                    "estado" => "ACEPTADO",
-                                    "descripcion" => $result->getCdrResponse()->getDescription()
-                                ];
-                                $estadoSunat = 'ACEPTADO';
-                                $objVen -> actualizarSunat($xml, $cdr, $estadoSunat, $idventa);
-                            } else {
+                            if (!$result->isSuccess()) {
                                 $sunatRespuesta = [
                                     "estado" => "ERROR",
-                                    "codigo" => $result->getError()->getCode(),
-                                    "mensaje" => $result->getError()->getMessage()
+                                    "descripcion" => $result->getError()->getMessage()
                                 ];
-                                $estadoSunat = 'RECHAZADO';
+                                $estadoSunat = 'ERROR';
                                 $objVen -> actualizarSunat($xml, NULL, $estadoSunat, $idventa);
+                                break;
                             }
-                            // =====================================================================
+                            
+                            file_put_contents(__DIR__ . '/../cdr/R-' . $invoice->getName() . '.zip', $result->getCdrZip());
+                            $cdr = 'cdr/R-' . $invoice->getName() . '.zip';
 
+                            $cdrEnvio = $result->getCdrResponse();
+                            $code = (int)$cdrEnvio->getCode();
+
+                            if ($code === 0) {
+                                $sunatRespuesta = [
+                                    "estado" => "ACEPTADO",
+                                    "descripcion" => $cdrEnvio->getDescription().PHP_EOL
+                                ];
+                                $estadoSunat = 'ACEPTADO';
+                                
+                                if (count($cdrEnvio->getNotes()) > 0) {
+                                    $sunatRespuesta = [
+                                        "estado" => "CON OBSERVACIONES",
+                                        "descripcion" => 'CORREGIR: ' . $cdrEnvio->getNotes()
+                                    ];
+                                    $estadoSunat = 'OBSERVACION';
+                                }  
+                            } else if ($code >= 2000 && $code <= 3999) {
+                                $sunatRespuesta = [
+                                    "estado" => "RECHAZADA",
+                                    "descripcion" => $cdrEnvio->getDescription().PHP_EOL
+                                ];
+                            } else {
+                                /* es un CDR inválido que debería tratarse como un error-excepción. */
+                                /*code: 0100 a 1999 */
+                                $sunatRespuesta = [
+                                    "estado" => "EXCEPCION",
+                                    "descripcion" => $cdrEnvio->getDescription().PHP_EOL
+                                ];
+                                $estadoSunat = 'EXCEPCION';
+                            }
+
+                            $objVen -> actualizarSunat($xml, $cdr, $estadoSunat, $idventa);
 
                         }
                     }
@@ -510,10 +535,8 @@ function controlador($accion)
 
                             $xml = 'xml/' . $invoice->getName() . '.xml';
                             
-                            if ($result->isSuccess()) {
-                                file_put_contents(__DIR__ . '/../cdr/R-' . $invoice->getName() . '.zip', $result->getCdrZip());
-
-                                $cdr = 'cdr/R-' . $invoice->getName() . '.zip';
+                            if (!$result->isSuccess()) {
+                               
                                 $sunatRespuesta = [
                                     "estado" => "ACEPTADO",
                                     "descripcion" => $result->getCdrResponse()->getDescription()
@@ -529,6 +552,10 @@ function controlador($accion)
                                 $estadoSunat = 'RECHAZADO';
                                 $objVen -> actualizarSunat(NULL, NULL, $estadoSunat, $_POST['idventa']);
                             }
+
+                            file_put_contents(__DIR__ . '/../cdr/R-' . $invoice->getName() . '.zip', $result->getCdrZip());
+
+                            $cdr = 'cdr/R-' . $invoice->getName() . '.zip';
                             // =====================================================================
                     //fin actualizacion de stock actual                    
                     $codigoError =  1;

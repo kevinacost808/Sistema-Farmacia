@@ -126,7 +126,7 @@ class clsVenta{
 			$parametros[':estado'] = $estado;
 		}
 
-		$sql .=" GROUP BY ve.idventa ORDER BY ve.fecha DESC";
+		$sql .=" GROUP BY ve.idventa ORDER BY ve.idventa DESC";
 
 		global $cnx;
 		$pre = $cnx->prepare($sql);
