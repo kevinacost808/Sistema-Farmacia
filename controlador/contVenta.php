@@ -166,6 +166,8 @@ function controlador($accion)
                             $objPro->actualizarStock($v["idproducto"], $v["cantidad"] * -1);
                         }
 
+                        $cnx->commit();
+
                         if ($venta["idtipocomprobante"] != 0) {
 
                             // ===================== FACTURACIÓN ELECTRÓNICA =======================
@@ -302,8 +304,13 @@ function controlador($accion)
                     $codigoError = 2;
                 }
 
-                $cnx->commit();
             } catch (Exception $ex) {
+                $array_retorno = array(
+                    "idventa" => $idventa,
+                    "codigoError" => 'Error en sunat',
+                    "problemasStock" => '',
+                    "sunat" => $e
+                );
                 $cnx->rollBack();
                 // $codigoError = 0;
             }
@@ -455,6 +462,8 @@ function controlador($accion)
                     foreach ($carrito as $k => $v) {
                         $objPro->actualizarStock($v["idproducto"], $v["cantidad"] * -1);
                     }
+                    
+                    $cnx->commit();
                     // ===================== FACTURACIÓN ELECTRÓNICA =======================
                     require __DIR__ . '/../vendor/autoload.php';
                     $see = require __DIR__ . '/../sunat/config.php';
@@ -540,7 +549,7 @@ function controlador($accion)
                             "descripcion" => $result->getError()->getMessage()
                         ];
                         $estadoSunat = 'ERROR';
-                        $objVen->actualizarSunat($xml, NULL, $estadoSunat, $idventa);
+                        $objVen->actualizarSunat($xml, NULL, $estadoSunat, $_POST['idventa']);
                         break;
                     }
 
@@ -579,7 +588,7 @@ function controlador($accion)
                         $estadoSunat = 'EXCEPCION';
                     }
 
-                    $objVen->actualizarSunat($xml, $cdr, $estadoSunat, $idventa);
+                    $objVen->actualizarSunat($xml, $cdr, $estadoSunat, $_POST['idventa']    );
                     // =====================================================================
                     //fin actualizacion de stock actual                    
                     $codigoError =  1;
@@ -589,12 +598,16 @@ function controlador($accion)
                     $codigoError = 2;
                 }
 
-                $cnx->commit();
             } catch (Exception $ex) {
                 $cnx->rollBack();
                 $codigoError = 0;
             }
-            $array_retorno = array("idventa" => $_POST['idventa'], "codigoError" => $codigoError, "problemasStock" => $problemasStock);
+            $array_retorno = array(
+                "idventa" => $_POST['idventa'],
+                "codigoError" => $codigoError,
+                "problemasStock" => count($problemasStock) > 0 ? $problemasStock : [],
+                "sunat" => $sunatRespuesta ?? null
+            );
             echo json_encode($array_retorno);
             break;
 

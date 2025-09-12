@@ -65,7 +65,7 @@ $listaVenta = $listaVenta->fetchAll(PDO::FETCH_NAMED);
 				<a class="btn btn-sm bg-maroon" href="<?= $v['xml'] ?>" target="_blank"><i class="fa fa-file-pdf"></i> XML</a>
 			</td>
 			<td>
-				<a class="btn btn-sm bg-maroon" href="<?= $v['cdr'] ?>" target="_blank"><i class="fa fa-file-pdf"></i> CDR</a>
+				<?= $v['cdr'] != "" ? '<a class="btn btn-sm bg-maroon" href="' . $v['cdr'] . '" target="_blank"><i class="fa fa-file-pdf"></i> CDR</a>' : 'Sin CDR' ?>
 			</td>
 			<td class="text-center">
 				<button type="button" class="btn btn-info btn-sm" onclick="editarVenta(<?php echo $v['idventa']; ?>)"><i class="fa fa-edit"></i> Editar</button>
