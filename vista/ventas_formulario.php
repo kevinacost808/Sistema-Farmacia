@@ -507,7 +507,7 @@ function GuardarVenta() {
         dataType: 'json'
     }).done(function(resultado) {
         if (resultado.codigoError == 1) {
-            toastCorrecto(resultado.sunat.estado + " - " + resultado.sunat.descripcion);
+            toastCorrecto("Venta exitosa: " + resultado.sunat.estado + " - " + resultado.sunat.descripcion);
             
             CancelarVenta();
         } else if (resultado.codigoError == 99) {
