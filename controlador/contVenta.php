@@ -295,6 +295,12 @@ function controlador($accion)
                             }
 
                             $objVen->actualizarSunat($xml, $cdr, $estadoSunat, $idventa);
+                        }else{
+                            $sunatRespuesta = [
+                                "estado" => "Nota de Venta",
+                                "descripcion" => "Sunat no requiere nota de venta"
+                            ];
+                            $objVen->actualizarSunat(NULL, NULL, 'NO REQUIERE', $idventa);
                         }
                     }
                     $codigoError =  1;
